@@ -6,7 +6,7 @@ labels: ""
 assignees: ""
 ---
 
-**Ticket Jira :** `MT-XX` | **Epic :** `EPIC-X` | **Story Points :** `X` | **Assigné :** `Lhassan / Reda`
+**Ticket Jira :** `MT-XX` | **Epic :** `EPIC-X` | **Story Points :** `X` | **Assigné :** `Lhassan / Rida Dandane`
 
 ### User Story
 En tant que `<rôle>`, je veux `<fonctionnalité>` afin de `<bénéfice>`.
