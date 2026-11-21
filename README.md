@@ -5,7 +5,7 @@
 > **Filière :** Ingénierie des Logiciels et des Systèmes d'Information — ILSI-4A  
 > **Année Universitaire :** 2026 / 2027  
 > **Encadrant :** Pr. S. Amri  
-> **Équipe :** Lhassan Oubihi (Product Owner & Lead Backend/DevOps) · Reda (Scrum Master & Lead Frontend/QA)
+> **Équipe :** Lhassan Oubihi (Product Owner & Lead Backend/DevOps) · Rida Dandane (Scrum Master & Lead Frontend/QA)
 
 ---
 
