@@ -33,7 +33,7 @@ Les établissements de santé font face à une gestion complexe des dossiers pat
 | **Génération PDF** | PDFKit (Ordonnances numériques) |
 | **Tests & CI/CD** | Jest + Supertest (couverture ≥ 60%), Cypress (E2E), GitHub Actions (lint + tests) |
 | **Conteneurisation** | Docker + Docker Compose |
-| **Gestion de projet** | Jira Software — Board Scrum : https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67 (Clé `MT`, 5 Sprints, 34 Stories, 103 Sous-tâches) |
+| **Gestion de projet** | Jira Software — Board Scrum : https://lhassanoubihi.atlassian.net/jira/software/projects/MED/boards/68 (Clé `MED`, 5 Sprints, 34 Stories, 103 Sous-tâches) |
 
 ---
 
@@ -72,7 +72,7 @@ docker-compose up --build
 ### Convention Git & Smart Commits Jira
 - `main` : Releases stables par sprint (`v0.1-sprint1` → `v1.0-final`)
 - `develop` : Intégration des Pull Requests
-- `feature/MT-<id>-us<num>-<description>` : Une branche par User Story Jira
+- `feature/MED-<id>-us<num>-<description>` : Une branche par User Story Jira
 
 ---
 
