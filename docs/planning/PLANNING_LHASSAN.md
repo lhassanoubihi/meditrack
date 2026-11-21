@@ -1,4 +1,4 @@
-# Planning Quotidien Antigravity — Lhassan Oubihi (`DevB`)
+# Planning Quotidien Antigravity — Lhassan Oubihi
 
 > **Profil :** `DevB` — Full-Stack (Backend Node.js/Express/MongoDB + Frontend Angular 17 + CI/CD & QA)  
 > **Identité Git :** `Lhassan Oubihi <lhassan.oubihi1@gmail.com>`  
@@ -8,7 +8,7 @@
 
 ---
 
-## Protocole Obligatoire pour l'Agent Antigravity de Lhassan (`DevB`)
+## Protocole Obligatoire pour l'Agent Antigravity de Lhassan
 
 *(Aucun script automatique ne tourne sur le PC : tout est exécuté à la demande quand Lhassan ouvre Antigravity.)*
 
@@ -25,9 +25,9 @@
    git checkout develop && git pull origin develop
    git checkout -b feature/MT-XX-usYY-description
    ```
-3. **Passer le ticket Jira (et ses sous-tâches `DevB`) à `En cours` (`In Progress`) :**
+3. **Passer le ticket Jira (et ses sous-tâches de Lhassan Oubihi) à `En cours` (`In Progress`) :**
    - Via Jira UI ou `twg jira workitem transition --id MT-XX --transition-id 21 --site lhassanoubihi.atlassian.net`.
-4. **Implémenter exactement les sous-tâches `DevB` du jour + Tests / Build** (`npm test`, `ng build`, lint).
+4. **Implémenter exactement les sous-tâches de Lhassan Oubihi du jour + Tests / Build** (`npm test`, `ng build`, lint).
 5. **Committer avec la clé Jira, pousser et ouvrir la Pull Request vers `develop` :**
    ```bash
    git add .
@@ -36,7 +36,7 @@
    gh pr create --base develop --head feature/MT-XX-usYY-description --title "MT-XX : US-YY Titre" --body "Closes #<issue_gh>"
    ```
    - Marquer le ticket Jira **`In Review`** (ou label `in-review`).
-6. **Revue croisée de la PR de Rida Dandane (`DevA`) :**
+6. **Revue croisée de la PR de Rida Dandane :**
    - Vérifier `gh pr list --state open`, relire, vérifier la CI GitHub Actions, puis merger (`gh pr merge <num> --merge --delete-branch`).
    - Passer le ticket Jira mergé (et les sous-tâches complétées) à **`Terminé(e)`** (`Done`, transition `31`).
 
@@ -48,7 +48,7 @@
 - **US-01 (`MT-39`, `#1` · Binôme)** — Branche `feature/MT-39-us01-angular-readme` :
   - `US-01-T2` : Init projet Angular 17 + Angular Material (`frontend/`).
   - `US-01-T4` : Compléter `.env.example` + README de démarrage clair.
-- **US-02 (`MT-40`, `#2` · DevB · 3 pts)** — Branche `feature/MT-40-us02-ci-github-actions` :
+- **US-02 (`MT-40`, `#2` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-40-us02-ci-github-actions` :
   - `US-02-T1` : Workflow `.github/workflows/ci.yml` : install + lint (ESLint backend & frontend).
   - `US-02-T2` : Étape tests Jest dans le workflow CI sur chaque PR.
   - `US-02-T3` : Ajouter le badge CI GitHub Actions dans `README.md`.
@@ -66,7 +66,7 @@
 - **US-05 (`MT-43`, `#5` · Binôme)** — Branche `feature/MT-43-us05-role-guards-ui` :
   - `US-05-T2` : Guards Angular par rôle (`Admin`, `Médecin`, `Infirmier`, `Patient`, `Pharmacien`).
   - `US-05-T3` : Menu dynamique et redirection selon le rôle.
-- **US-07 (`MT-45`, `#7` · DevB · 3 pts)** — Branche `feature/MT-45-us07-staff-crud` :
+- **US-07 (`MT-45`, `#7` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-45-us07-staff-crud` :
   - `US-07-T1` : CRUD utilisateurs côté API (Admin only).
   - `US-07-T2` : Écrans Angular de gestion des comptes du personnel.
   - `US-07-T3` : Activation / désactivation de compte.
@@ -81,24 +81,24 @@
 ## SPRINT 2 — (Jeu 26 nov. → Dim 29 nov. 2026)
 
 ### Jour 5 — Jeudi 26 novembre 2026
-- **US-13 (`MT-51`, `#13` · DevB · 5 pts)** — Branche `feature/MT-51-us13-angular-layout` :
+- **US-13 (`MT-51`, `#13` · Lhassan Oubihi · 5 pts)** — Branche `feature/MT-51-us13-angular-layout` :
   - `US-13-T1` : Layout Angular Material (`header`, `sidenav` par rôle).
   - `US-13-T2` : Gestion centralisée des erreurs (intercepteur HTTP + `MatSnackBar`).
   - `US-13-T3` : Routing + lazy loading des modules Angular.
 - **Fin J5 :** Ouvrir PR `MT-51` → Relire & merger **US-08 (`MT-46`)** de Rida.
 
 ### Jour 6 — Vendredi 27 novembre 2026
-- **US-09 (`MT-47`, `#9` · DevB · 3 pts)** — Branche `feature/MT-47-us09-patient-search` :
+- **US-09 (`MT-47`, `#9` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-47-us09-patient-search` :
   - `US-09-T1` : Endpoint `GET /patients` avec recherche (nom / CIN) + pagination.
   - `US-09-T2` : Liste/recherche Angular (table paginée `MatTable`).
   - `US-09-T3` : Page de détail complet du dossier patient.
 - **Fin J6 :** Ouvrir PR `MT-47` → Relire & merger **US-10 (`MT-48`)** de Rida.
 
 ### Jour 7 — Samedi 28 novembre 2026
-- **US-11 (`MT-49`, `#11` · DevB · 2 pts)** — Branche `feature/MT-49-us11-patient-archive` :
+- **US-11 (`MT-49`, `#11` · Lhassan Oubihi · 2 pts)** — Branche `feature/MT-49-us11-patient-archive` :
   - `US-11-T1` : Champ `isArchived` + endpoint d'archivage (soft delete).
   - `US-11-T2` : Filtre des archivés dans les listes + bouton Angular.
-- **US-12 (`MT-50`, `#12` · DevB · 3 pts)** — Branche `feature/MT-50-us12-patient-me` :
+- **US-12 (`MT-50`, `#12` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-50-us12-patient-me` :
   - `US-12-T1` : Endpoint `GET /patients/me` (lecture seule pour le patient connecté).
   - `US-12-T2` : Page « Mon dossier » Angular.
 - **Fin J7 :** Ouvrir PRs `MT-49` & `MT-50` → Relire & merger **US-14 (`MT-52`)** (RGPD AES-256-GCM + AuditLog) de Rida.
@@ -111,23 +111,23 @@
 ## SPRINT 3 — (Lun 30 nov. → Jeu 03 déc. 2026)
 
 ### Jour 9 — Lundi 30 novembre 2026
-- **US-15 (`MT-53`, `#15` · DevB · 3 pts)** — Branche `feature/MT-53-us15-disponibilites` :
+- **US-15 (`MT-53`, `#15` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-53-us15-disponibilites` :
   - `US-15-T1` : Modèle `Disponibilite` (jours, horaires, durée de créneau).
   - `US-15-T2` : Endpoints CRUD disponibilités médecin.
   - `US-15-T3` : Écran Angular de configuration des disponibilités.
 - **Fin J9 :** Ouvrir PR `MT-53` → Relire & merger **US-16 (`MT-54`)** de Rida.
 
 ### Jour 10 — Mardi 1er décembre 2026
-- **US-17 (`MT-55`, `#17` · DevB · 3 pts)** — Branche `feature/MT-55-us17-rdv-statut` :
+- **US-17 (`MT-55`, `#17` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-55-us17-rdv-statut` :
   - `US-17-T1` : Endpoint `PATCH /rendezvous/:id/statut` (confirmer / refuser / annuler, tracé).
   - `US-17-T2` : Boutons d'action et liste des RDV côté médecin.
-- **US-20 (`MT-58`, `#20` · DevB · 3 pts)** — Branche `feature/MT-58-us20-sms-twilio` :
+- **US-20 (`MT-58`, `#20` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-58-us20-sms-twilio` :
   - `US-20-T1` : Service SMS Twilio (mode test).
   - `US-20-T2` : Gestion d'échec sans jamais bloquer l'application.
 - **Fin J10 :** Ouvrir PRs `MT-55` & `MT-58` → Relire & merger **US-21 (`MT-59`)** de Rida.
 
 ### Jour 11 — Mercredi 2 décembre 2026
-- **US-18 (`MT-56`, `#18` · DevB · 5 pts)** — Branche `feature/MT-56-us18-fullcalendar` :
+- **US-18 (`MT-56`, `#18` · Lhassan Oubihi · 5 pts)** — Branche `feature/MT-56-us18-fullcalendar` :
   - `US-18-T1` : Intégrer **FullCalendar** dans Angular (vues jour / semaine / mois).
   - `US-18-T2` : Alimenter le calendrier depuis l'API `/rendezvous`.
   - `US-18-T3` : Modale/panneau détail du RDV au clic.
@@ -141,22 +141,22 @@
 ## SPRINT 4 — (Ven 04 déc. → Lun 07 déc. 2026)
 
 ### Jour 13 — Vendredi 4 décembre 2026
-- **US-27 (`MT-65`, `#27` · DevB · 5 pts)** — Branche `feature/MT-65-us27-stock-medicaments` :
+- **US-27 (`MT-65`, `#27` · Lhassan Oubihi · 5 pts)** — Branche `feature/MT-65-us27-stock-medicaments` :
   - `US-27-T1` : Modèle `Medicament` + CRUD API (quantité, seuil minimum).
   - `US-27-T2` : Écrans Angular de gestion du stock de médicaments.
 - **Fin J13 :** Ouvrir PR `MT-65` → Relire & merger **US-22 (`MT-60`)** de Rida.
 
 ### Jour 14 — Samedi 5 décembre 2026
-- **US-25 (`MT-63`, `#25` · DevB · 3 pts)** — Branche `feature/MT-63-us25-historique-consultations` :
+- **US-25 (`MT-63`, `#25` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-63-us25-historique-consultations` :
   - `US-25-T1` : Endpoint `GET /patients/:id/consultations` (liste chronologique).
   - `US-25-T2` : Timeline des consultations Angular avec accès au détail et à l'ordonnance.
 - **Fin J14 :** Ouvrir PR `MT-63` → Relire & merger **US-23 (`MT-61`)** de Rida.
 
 ### Jour 15 — Dimanche 6 décembre 2026
-- **US-26 (`MT-64`, `#26` · DevB · 3 pts)** — Branche `feature/MT-64-us26-validation-ordonnance` :
+- **US-26 (`MT-64`, `#26` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-64-us26-validation-ordonnance` :
   - `US-26-T1` : Statuts d'ordonnance (`émise > validée > délivrée`) + refus si déjà délivrée.
   - `US-26-T2` : Écran pharmacien : liste et validation des ordonnances.
-- **US-28 (`MT-66`, `#28` · DevB · 3 pts)** — Branche `feature/MT-66-us28-decrementation-stock` :
+- **US-28 (`MT-66`, `#28` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-66-us28-decrementation-stock` :
   - `US-28-T1` : Décrémentation automatique du stock à la délivrance (transaction).
   - `US-28-T2` : Badge d'alerte visuel sous le seuil minimum.
 - **Fin J15 :** Ouvrir PRs `MT-64` & `MT-66` → Relire & merger **US-24 (`MT-62`)** (PDFKit) de Rida.
@@ -169,21 +169,21 @@
 ## SPRINT 5 — (Mar 08 déc. → Dim 13 déc. 2026)
 
 ### Jour 17 — Mardi 8 décembre 2026
-- **US-32 (`MT-70`, `#32` · DevB · 5 pts)** — Branche `feature/MT-70-us32-coverage-60` :
+- **US-32 (`MT-70`, `#32` · Lhassan Oubihi · 5 pts)** — Branche `feature/MT-70-us32-coverage-60` :
   - `US-32-T1` : Compléter les tests unitaires backend (services / controllers).
   - `US-32-T2` : Tests des composants Angular clés.
   - `US-32-T3` : Vérifier et générer le rapport de couverture Jest `>= 60%`.
 - **Fin J17 :** Ouvrir PR `MT-70` → Relire & merger **US-29 (`MT-67`)** de Rida.
 
 ### Jour 18 — Mercredi 9 décembre 2026
-- **US-31 (`MT-69`, `#31` · DevB · 5 pts)** — Branche `feature/MT-69-us31-cypress-e2e` :
+- **US-31 (`MT-69`, `#31` · Lhassan Oubihi · 5 pts)** — Branche `feature/MT-69-us31-cypress-e2e` :
   - `US-31-T1` : Installer et configurer **Cypress**.
   - `US-31-T2` : Scénario E2E complet : `login 2FA > RDV > consultation > ordonnance`.
   - `US-31-T3` : Seed de données de test E2E.
 - **Fin J18 :** Ouvrir PR `MT-69` → Relire & merger **US-30 (`MT-68`)** de Rida.
 
 ### Jour 19 — Jeudi 10 décembre 2026
-- **US-33 (`MT-71`, `#33` · DevB · 3 pts)** — Branche `feature/MT-71-us33-readme-seed-docker` :
+- **US-33 (`MT-71`, `#33` · Lhassan Oubihi · 3 pts)** — Branche `feature/MT-71-us33-readme-seed-docker` :
   - `US-33-T1` : `README.md` détaillé (installation, variables `.env`, comptes de démo).
   - `US-33-T2` : Script de `seed` (users par rôle, patients, RDV, médicaments).
   - `US-33-T3` : Vérifier `docker-compose up --build` sur machine propre.

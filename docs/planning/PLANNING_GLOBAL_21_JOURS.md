@@ -2,13 +2,13 @@
 
 > **Source officielle :** [`docs/jira/meditrack_backlog_officiel.csv`](../jira/meditrack_backlog_officiel.csv) *(7 Epics · 34 User Stories · 103 Sous-tâches · 140 Story Points)*  
 > **Période totale :** **Dimanche 22 nov. 2026 → Dimanche 13 déc. 2026** *(3 semaines · 5 Sprints de 4 jours)*  
-> **Binôme Full-Stack :** **Rida Dandane (`DevA`)** & **Lhassan Oubihi (`DevB`)** *(chacun code Backend + Frontend)*  
+> **Binôme Full-Stack :** **Rida Dandane** & **Lhassan Oubihi** *(chacun code Backend + Frontend)*  
 > **Mode de travail :** **100 % piloté à la demande dans Antigravity** (aucun script automatique en arrière-plan sur PC). Chaque jour, chacun ouvre Antigravity et lance sa tâche du jour.  
 > **Board Jira (`MT`) :** https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67  
 > **Dépôt GitHub :** https://github.com/lhassanoubihi/meditrack  
 > **Plans individuels prêts pour Antigravity :**
-> - Plan & Protocole Agent de **Lhassan Oubihi (`DevB`)** : [`PLANNING_LHASSAN.md`](./PLANNING_LHASSAN.md)
-> - Plan & Protocole Agent de **Rida Dandane (`DevA`)** : [`PLANNING_RIDA.md`](./PLANNING_RIDA.md)
+> - Plan & Protocole Agent de **Lhassan Oubihi** : [`PLANNING_LHASSAN.md`](./PLANNING_LHASSAN.md)
+> - Plan & Protocole Agent de **Rida Dandane** : [`PLANNING_RIDA.md`](./PLANNING_RIDA.md)
 
 ---
 
@@ -16,7 +16,7 @@
 
 ### Sprint 1 (J1–J4 : Dim 22 nov. → Mer 25 nov.) — Infrastructure MEAN, CI/CD & Auth/2FA *(7 Stories · 30 pts)*
 
-| Jour | Date | Rida Dandane (`DevA`) | Lhassan Oubihi (`DevB`) | Reste idéal (Burndown) |
+| Jour | Date | Rida Dandane | Lhassan Oubihi | Reste idéal (Burndown) |
 | :---: | :---: | :--- | :--- | :---: |
 | **J1** | **Dim 22 nov.** | **US-01** (`MT-39`, `#1`) : `T1` Backend structure + `T3` Dockerfiles & `docker-compose.yml` | **US-01** (`MT-39`, `#1`) : `T2` Angular 17/Material + `T4` `.env.example`/README<br>**US-02** (`MT-40`, `#2`) : `T1,T2,T3` Pipeline CI GitHub Actions + badge | **7 → 5** *(22 pts)* |
 | **J2** | **Lun 23 nov.** | **US-03** (`MT-41`, `#3`) : `T1,T2,T4` User bcrypt + `POST /auth/register` + tests<br>**US-04** (`MT-42`, `#4`) : `T1,T2` `POST /auth/login` JWT + `authenticate` | **US-03** (`MT-41`, `#3`) : `T3` Formulaire inscription Angular<br>**US-04** (`MT-42`, `#4`) : `T3,T4` Page login Angular + `AuthService` + tests | **5 → 3** *(16 pts)* |
@@ -27,7 +27,7 @@
 
 ### Sprint 2 (J5–J8 : Jeu 26 nov. → Dim 29 nov.) — Dossier Patient & Chiffrement RGPD *(7 Stories · 28 pts)*
 
-| Jour | Date | Rida Dandane (`DevA`) | Lhassan Oubihi (`DevB`) | Reste idéal (Burndown) |
+| Jour | Date | Rida Dandane | Lhassan Oubihi | Reste idéal (Burndown) |
 | :---: | :---: | :--- | :--- | :---: |
 | **J5** | **Jeu 26 nov.** | **US-08** (`MT-46`, `#8`) : `T1–T4` Modèle Patient + `POST /patients` + Formulaire Angular + tests | **US-13** (`MT-51`, `#13`) : `T1–T3` Layout Material (header/sidenav) + gestion erreurs + lazy loading | **7 → 5** *(18 pts)* |
 | **J6** | **Ven 27 nov.** | **US-10** (`MT-48`, `#10`) : `T1–T3` `PUT /patients/:id` + historique modif + Formulaire Angular + tests | **US-09** (`MT-47`, `#9`) : `T1–T3` `GET /patients` recherche/pagination + Table + Page détail | **5 → 3** *(10 pts)* |
@@ -38,7 +38,7 @@
 
 ### Sprint 3 (J9–J12 : Lun 30 nov. → Jeu 03 déc.) — Rendez-vous, Calendrier & Notifications *(7 Stories · 25 pts)*
 
-| Jour | Date | Rida Dandane (`DevA`) | Lhassan Oubihi (`DevB`) | Reste idéal (Burndown) |
+| Jour | Date | Rida Dandane | Lhassan Oubihi | Reste idéal (Burndown) |
 | :---: | :---: | :--- | :--- | :---: |
 | **J9** | **Lun 30 nov.** | **US-16** (`MT-54`, `#16`) : `T1–T4` Modèle RDV + créneaux libres + `POST /rendezvous` + UI + tests | **US-15** (`MT-53`, `#15`) : `T1–T3` Modèle Disponibilité + CRUD API + Écran config Angular | **7 → 5** *(17 pts)* |
 | **J10** | **Mar 01 déc.** | **US-21** (`MT-59`, `#21`) : `T1–T3` Contrainte unicité + retour `409` + test concurrence | **US-17** (`MT-55`, `#17`) : `T1–T2` `PATCH /rendezvous/:id/statut` + UI médecin<br>**US-20** (`MT-58`, `#20`) : `T1–T2` Service SMS Twilio (mode test + résilience) | **5 → 2** *(8 pts)* |
@@ -49,7 +49,7 @@
 
 ### Sprint 4 (J13–J16 : Ven 04 déc. → Lun 07 déc.) — Consultations, Ordonnances PDF & Pharmacie *(7 Stories · 29 pts)*
 
-| Jour | Date | Rida Dandane (`DevA`) | Lhassan Oubihi (`DevB`) | Reste idéal (Burndown) |
+| Jour | Date | Rida Dandane | Lhassan Oubihi | Reste idéal (Burndown) |
 | :---: | :---: | :--- | :--- | :---: |
 | **J13** | **Ven 04 déc.** | **US-22** (`MT-60`, `#22`) : `T1–T3` Modèle Consultation + `POST /consultations` + Formulaire Angular | **US-27** (`MT-65`, `#27`) : `T1–T2` Modèle Médicament + CRUD API + Écrans gestion stock | **7 → 5** *(19 pts)* |
 | **J14** | **Sam 05 déc.** | **US-23** (`MT-61`, `#23`) : `T1–T3` Modèle Ordonnance + `POST /ordonnances` + lignes dynamiques Angular | **US-25** (`MT-63`, `#25`) : `T1–T2` `GET /patients/:id/consultations` + Timeline Angular | **5 → 3** *(11 pts)* |
@@ -60,7 +60,7 @@
 
 ### Sprint 5 (J17–J21 : Mar 08 déc. → Dim 13 déc.) — Statistiques, Tests E2E/Jest ≥ 60% & Rapport *(6 Stories · 28 pts)*
 
-| Jour | Date | Rida Dandane (`DevA`) | Lhassan Oubihi (`DevB`) | Reste idéal (Burndown) |
+| Jour | Date | Rida Dandane | Lhassan Oubihi | Reste idéal (Burndown) |
 | :---: | :---: | :--- | :--- | :---: |
 | **J17** | **Mar 08 déc.** | **US-29** (`MT-67`, `#29`) : `T1–T2` Agrégation KPI + Tableau de bord médecin Angular | **US-32** (`MT-70`, `#32`) : `T1–T3` Tests unitaires services/controllers + Angular + couverture ≥ 60% Jest | **6 → 4** *(18 pts)* |
 | **J18** | **Mer 09 déc.** | **US-30** (`MT-68`, `#30`) : `T1–T2` Pipeline MongoDB par spécialité + Graphiques Chart.js Angular | **US-31** (`MT-69`, `#31`) : `T1–T3` Cypress E2E (`login 2FA > RDV > consultation > ordonnance`) + seed test | **4 → 2** *(8 pts)* |

@@ -1,4 +1,4 @@
-# Planning Quotidien Antigravity — Rida Dandane (`DevA`)
+# Planning Quotidien Antigravity — Rida Dandane
 
 > **Profil :** `DevA` — Full-Stack (Backend Node.js/Express/MongoDB + Frontend Angular 17 + Sécurité RGPD & Analytics)  
 > **Identité Git :** `Rida Dandane`  
@@ -8,7 +8,7 @@
 
 ---
 
-## Protocole Obligatoire pour l'Agent Antigravity de Rida Dandane (`DevA`)
+## Protocole Obligatoire pour l'Agent Antigravity de Rida Dandane
 
 **À LIRE IMPÉRATIVEMENT PAR L'AGENT ANTIGRAVITY DE RIDA AVANT CHAQUE TÂCHE :**
 *(Aucun script automatique ne tourne sur PC : tu exécutes tout proprement quand Rida t'ouvre chaque jour.)*
@@ -20,7 +20,7 @@
    *(ou sous Linux/macOS : `date +"%Y-%m-%d %H:%M"`)*
    - Compare la date système réelle avec le planning ci-dessous (du **22 nov. 2026** au **13 déc. 2026**).
    - **Si la date système ne correspond pas au jour demandé par Rida**, **avertis-le avant de coder ou de fermer le ticket** pour garder un **Burndown Chart Jira** cohérent jour par jour.
-   - Ne réalise **que les sous-tâches `DevA` du jour en cours**.
+   - Ne réalise **que les sous-tâches de Rida Dandane du jour en cours**.
 
 2. **Synchroniser Git & créer la branche du jour :**
    ```bash
@@ -29,10 +29,10 @@
    git checkout -b feature/MT-XX-usYY-description
    ```
 
-3. **Passer le ticket Jira (et ses sous-tâches `DevA`) à `En cours` (`In Progress`) :**
+3. **Passer le ticket Jira (et ses sous-tâches de Rida Dandane) à `En cours` (`In Progress`) :**
    - Dans Jira (`MT`) avant de commencer le code.
 
-4. **Implémenter exactement les sous-tâches `DevA` du jour + Tests / Build** (`npm test`, `ng build`, lint).
+4. **Implémenter exactement les sous-tâches de Rida Dandane du jour + Tests / Build** (`npm test`, `ng build`, lint).
 
 5. **Committer avec la clé Jira, pousser et ouvrir la Pull Request vers `develop` :**
    ```bash
@@ -43,7 +43,7 @@
    ```
    - Marquer le ticket Jira **`In Review`** (ou label `in-review`).
 
-6. **Revue croisée de la PR de Lhassan Oubihi (`DevB`) en fin de journée :**
+6. **Revue croisée de la PR de Lhassan Oubihi en fin de journée :**
    - Vérifier `gh pr list --state open`, contrôler la CI GitHub Actions et le diff, puis merger (`gh pr merge <num> --merge --delete-branch`).
    - Passer le ticket Jira mergé (et les sous-tâches complétées) à **`Terminé(e)`** (`Done`).
 
@@ -71,13 +71,13 @@
 - **US-05 (`MT-43`, `#5` · Binôme · 5 pts)** — Branche `feature/MT-43-us05-authorize-rbac` :
   - `US-05-T1` : Middleware `authorize(...roles)` renvoyant `403`.
   - `US-05-T4` : Tests unitaires des accès autorisés / interdits.
-- **US-06 (`MT-44`, `#6` · DevA · 8 pts — partie 1/2)** — Branche `feature/MT-44-us06-2fa` :
+- **US-06 (`MT-44`, `#6` · Rida Dandane · 8 pts — partie 1/2)** — Branche `feature/MT-44-us06-2fa` :
   - `US-06-T1` : Endpoint génération du secret / code 2FA (`speakeasy` TOTP ou OTP email).
   - `US-06-T2` : Endpoint vérification du code 2FA + émission du JWT final.
 - **Fin J3 :** Ouvrir PR `MT-43` → Relire & merger `US-05` (`T2,T3`) & **US-07 (`MT-45`)** de Lhassan.
 
 ### Jour 4 — Mercredi 25 novembre 2026 *(Fin Sprint 1)*
-- **US-06 (`MT-44`, `#6` · DevA · 8 pts — partie 2/2)** — Branche `feature/MT-44-us06-2fa` :
+- **US-06 (`MT-44`, `#6` · Rida Dandane · 8 pts — partie 2/2)** — Branche `feature/MT-44-us06-2fa` :
   - `US-06-T3` : Écran Angular de saisie du code 2FA (QR code si TOTP).
   - `US-06-T4` : Gestion des erreurs (code invalide ou expiré).
   - `US-06-T5` : Tests unitaires 2FA.
@@ -88,7 +88,7 @@
 ## SPRINT 2 — (Jeu 26 nov. → Dim 29 nov. 2026)
 
 ### Jour 5 — Jeudi 26 novembre 2026
-- **US-08 (`MT-46`, `#8` · DevA · 5 pts)** — Branche `feature/MT-46-us08-create-patient` :
+- **US-08 (`MT-46`, `#8` · Rida Dandane · 5 pts)** — Branche `feature/MT-46-us08-create-patient` :
   - `US-08-T1` : Modèle `Patient` Mongoose + validation (identité, contact, antécédents, allergies, traitements).
   - `US-08-T2` : Endpoint `POST /patients` (retourne `201`).
   - `US-08-T3` : Formulaire Angular de création de dossier patient.
@@ -96,14 +96,14 @@
 - **Fin J5 :** Ouvrir PR `MT-46` → Relire & merger **US-13 (`MT-51`)** de Lhassan.
 
 ### Jour 6 — Vendredi 27 novembre 2026
-- **US-10 (`MT-48`, `#10` · DevA · 5 pts)** — Branche `feature/MT-48-us10-update-patient` :
+- **US-10 (`MT-48`, `#10` · Rida Dandane · 5 pts)** — Branche `feature/MT-48-us10-update-patient` :
   - `US-10-T1` : Endpoint `PUT /patients/:id` + historique de modification tracé (date, auteur).
   - `US-10-T2` : Formulaire Angular de mise à jour du dossier.
   - `US-10-T3` : Tests unitaires modification.
 - **Fin J6 :** Ouvrir PR `MT-48` → Relire & merger **US-09 (`MT-47`)** de Lhassan.
 
 ### Jour 7 — Samedi 28 novembre 2026
-- **US-14 (`MT-52`, `#14` · DevA · 5 pts)** — Branche `feature/MT-52-us14-rgpd-audit` :
+- **US-14 (`MT-52`, `#14` · Rida Dandane · 5 pts)** — Branche `feature/MT-52-us14-rgpd-audit` :
   - `US-14-T1` : Utilitaire crypto **AES-256-GCM** (`encrypt` / `decrypt`) + tests.
   - `US-14-T2` : Chiffrement des champs sensibles dans le modèle `Patient` + `cinHash` pour la recherche.
   - `US-14-T3` : Modèle `AuditLog` + middleware d'audit.
@@ -119,7 +119,7 @@
 ## SPRINT 3 — (Lun 30 nov. → Jeu 03 déc. 2026)
 
 ### Jour 9 — Lundi 30 novembre 2026
-- **US-16 (`MT-54`, `#16` · DevA · 5 pts)** — Branche `feature/MT-54-us16-booking-rdv` :
+- **US-16 (`MT-54`, `#16` · Rida Dandane · 5 pts)** — Branche `feature/MT-54-us16-booking-rdv` :
   - `US-16-T1` : Modèle `RendezVous` + calcul des créneaux libres.
   - `US-16-T2` : Endpoint `POST /rendezvous` (statut initial « en attente »).
   - `US-16-T3` : Écran de réservation Angular (médecin, date, créneau).
@@ -127,14 +127,14 @@
 - **Fin J9 :** Ouvrir PR `MT-54` → Relire & merger **US-15 (`MT-53`)** de Lhassan.
 
 ### Jour 10 — Mardi 1er décembre 2026
-- **US-21 (`MT-59`, `#21` · DevA · 3 pts)** — Branche `feature/MT-59-us21-anti-double-booking` :
+- **US-21 (`MT-59`, `#21` · Rida Dandane · 3 pts)** — Branche `feature/MT-59-us21-anti-double-booking` :
   - `US-21-T1` : Contrainte d'unicité sur `(médecin, date, créneau)`.
   - `US-21-T2` : Retour HTTP `409 Conflict` + message d'erreur clair côté Angular.
   - `US-21-T3` : Test de concurrence / double réservation.
 - **Fin J10 :** Ouvrir PR `MT-59` → Relire & merger **US-17 (`MT-55`)** & **US-20 (`MT-58`)** de Lhassan.
 
 ### Jour 11 — Mercredi 2 décembre 2026
-- **US-19 (`MT-57`, `#19` · DevA · 3 pts)** — Branche `feature/MT-57-us19-email-cron` :
+- **US-19 (`MT-57`, `#19` · Rida Dandane · 3 pts)** — Branche `feature/MT-57-us19-email-cron` :
   - `US-19-T1` : Service email **Nodemailer** + templates HTML.
   - `US-19-T2` : Envoi automatique à la confirmation du RDV.
   - `US-19-T3` : Tâche planifiée backend (`node-cron`) de rappel 24h avant (J-1).
@@ -148,21 +148,21 @@
 ## SPRINT 4 — (Ven 04 déc. → Lun 07 déc. 2026)
 
 ### Jour 13 — Vendredi 4 décembre 2026
-- **US-22 (`MT-60`, `#22` · DevA · 5 pts)** — Branche `feature/MT-60-us22-consultations` :
+- **US-22 (`MT-60`, `#22` · Rida Dandane · 5 pts)** — Branche `feature/MT-60-us22-consultations` :
   - `US-22-T1` : Modèle `Consultation` (lié RDV + patient).
   - `US-22-T2` : Endpoint `POST /consultations` + validation des champs obligatoires.
   - `US-22-T3` : Formulaire compte-rendu / diagnostic Angular.
 - **Fin J13 :** Ouvrir PR `MT-60` → Relire & merger **US-27 (`MT-65`)** de Lhassan.
 
 ### Jour 14 — Samedi 5 décembre 2026
-- **US-23 (`MT-61`, `#23` · DevA · 5 pts)** — Branche `feature/MT-61-us23-ordonnances` :
+- **US-23 (`MT-61`, `#23` · Rida Dandane · 5 pts)** — Branche `feature/MT-61-us23-ordonnances` :
   - `US-23-T1` : Modèle `Ordonnance` (lignes : médicament, posologie, durée, liée à la consultation).
   - `US-23-T2` : Endpoint `POST /ordonnances`.
   - `US-23-T3` : Formulaire d'ordonnance Angular (lignes dynamiques `FormArray`).
 - **Fin J14 :** Ouvrir PR `MT-61` → Relire & merger **US-25 (`MT-63`)** de Lhassan.
 
 ### Jour 15 — Dimanche 6 décembre 2026
-- **US-24 (`MT-62`, `#24` · DevA · 5 pts)** — Branche `feature/MT-62-us24-ordonnance-pdf` :
+- **US-24 (`MT-62`, `#24` · Rida Dandane · 5 pts)** — Branche `feature/MT-62-us24-ordonnance-pdf` :
   - `US-24-T1` : Génération PDF côté API (`pdfkit` : en-tête médecin, patient, date, médicaments).
   - `US-24-T2` : Endpoint `GET /ordonnances/:id/pdf`.
   - `US-24-T3` : Bouton de téléchargement PDF côté Angular.
@@ -176,13 +176,13 @@
 ## SPRINT 5 — (Mar 08 déc. → Dim 13 déc. 2026)
 
 ### Jour 17 — Mardi 8 décembre 2026
-- **US-29 (`MT-67`, `#29` · DevA · 5 pts)** — Branche `feature/MT-67-us29-dashboard-medecin` :
+- **US-29 (`MT-67`, `#29` · Rida Dandane · 5 pts)** — Branche `feature/MT-67-us29-dashboard-medecin` :
   - `US-29-T1` : Endpoints d'agrégation (RDV du jour, nombre de patients, consultations du mois).
   - `US-29-T2` : Tableau de bord médecin Angular (cartes KPI).
 - **Fin J17 :** Ouvrir PR `MT-67` → Relire & merger **US-32 (`MT-70`)** de Lhassan.
 
 ### Jour 18 — Mercredi 9 décembre 2026
-- **US-30 (`MT-68`, `#30` · DevA · 5 pts)** — Branche `feature/MT-68-us30-stats-specialite` :
+- **US-30 (`MT-68`, `#30` · Rida Dandane · 5 pts)** — Branche `feature/MT-68-us30-stats-specialite` :
   - `US-30-T1` : Pipeline d'agrégation MongoDB par spécialité et par période.
   - `US-30-T2` : Graphiques **Chart.js** dans Angular.
 - **Fin J18 :** Ouvrir PR `MT-68` → Relire & merger **US-31 (`MT-69`)** (Cypress E2E) de Lhassan.

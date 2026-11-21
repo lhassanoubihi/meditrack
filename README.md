@@ -5,7 +5,7 @@
 > **Filière :** Ingénierie des Logiciels et des Systèmes d'Information — ILSI-4A  
 > **Année Universitaire :** 2026 / 2027  
 > **Encadrant :** Pr. S. Amri  
-> **Équipe :** Rida Dandane (`DevA` · Full-Stack) · Lhassan Oubihi (`DevB` · Full-Stack)
+> **Équipe :** Rida Dandane (Full-Stack) · Lhassan Oubihi (Full-Stack)
 
 ---
 
@@ -65,8 +65,8 @@ docker-compose up --build
 ### Plannings Quotidiens Antigravity & Backlog Officiel
 - **Backlog CSV officiel (144 lignes) :** [`docs/jira/meditrack_backlog_officiel.csv`](docs/jira/meditrack_backlog_officiel.csv)
 - **Calendrier global (21 jours) :** [`docs/planning/PLANNING_GLOBAL_21_JOURS.md`](docs/planning/PLANNING_GLOBAL_21_JOURS.md)
-- **Planning Agent — Lhassan Oubihi (`DevB`) :** [`docs/planning/PLANNING_LHASSAN.md`](docs/planning/PLANNING_LHASSAN.md)
-- **Planning Agent — Rida Dandane (`DevA`) :** [`docs/planning/PLANNING_RIDA.md`](docs/planning/PLANNING_RIDA.md)
+- **Planning Agent — Lhassan Oubihi :** [`docs/planning/PLANNING_LHASSAN.md`](docs/planning/PLANNING_LHASSAN.md)
+- **Planning Agent — Rida Dandane :** [`docs/planning/PLANNING_RIDA.md`](docs/planning/PLANNING_RIDA.md)
 - **Guide SCRUM Jira :** [`docs/jira/GUIDE_SCRUM_JIRA.md`](docs/jira/GUIDE_SCRUM_JIRA.md)
 
 ### Convention Git & Smart Commits Jira

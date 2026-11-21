@@ -1,7 +1,7 @@
 # Guide SCRUM sous Jira — MediTrack (Backlog Officiel 5 Sprints)
 
 > **Filière :** ILSI-4A — ENSAM Meknès (2026 / 2027) · **Encadrant :** Pr. S. Amri  
-> **Équipe Full-Stack :** **Rida Dandane (`DevA`)** & **Lhassan Oubihi (`DevB`)**  
+> **Équipe Full-Stack :** **Rida Dandane** & **Lhassan Oubihi**  
 > **Board Jira (`MT`) :** https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67  
 > **Dépôt GitHub :** https://github.com/lhassanoubihi/meditrack  
 > **Backlog officiel :** [`meditrack_backlog_officiel.csv`](./meditrack_backlog_officiel.csv) *(7 Epics · 34 Stories · 103 Sous-tâches · 140 Story Points)*
@@ -10,7 +10,7 @@
 
 ## 1. Mode de Travail (100 % Interactif via Antigravity — Zéro Script Arrière-plan)
 
-1. Aucun script automatique ne tourne sur le PC : chaque jour, **Lhassan (`DevB`)** et **Rida (`DevA`)** ouvrent Antigravity et exécutent les tâches de leur journée selon :
+1. Aucun script automatique ne tourne sur le PC : chaque jour, **Lhassan** et **Rida** ouvrent Antigravity et exécutent les tâches de leur journée selon :
    - [PLANNING_GLOBAL_21_JOURS.md](../planning/PLANNING_GLOBAL_21_JOURS.md)
    - [PLANNING_LHASSAN.md](../planning/PLANNING_LHASSAN.md)
    - [PLANNING_RIDA.md](../planning/PLANNING_RIDA.md)
