@@ -113,6 +113,11 @@ Le script [`scripts/sync_github_jira.py`](scripts/sync_github_jira.py) est exéc
 - Pull Request ouverte mentionnant `MT-XX` → Ticket marqué **`in-review`** (ou **In Review**)
 - Pull Request mergée → Ticket passe à **Terminé(e)** (`Done`) pour un Burndown Chart cohérent jour après jour.
 
+### Planning Quotidien Antigravity (22 nov. → 13 déc. 2026)
+- **Calendrier global (21 jours) :** [`docs/planning/PLANNING_GLOBAL_21_JOURS.md`](docs/planning/PLANNING_GLOBAL_21_JOURS.md)
+- **Planning & Prompt Agent (Lhassan Oubihi) :** [`docs/planning/PLANNING_LHASSAN.md`](docs/planning/PLANNING_LHASSAN.md)
+- **Planning & Prompt Agent (Rida Dandane) :** [`docs/planning/PLANNING_RIDA.md`](docs/planning/PLANNING_RIDA.md)
+
 ### Convention des Branches & Smart Commits Jira
 - `main` : Branche stable (prête pour démonstration machine)
 - `develop` : Branche d'intégration des sprints
