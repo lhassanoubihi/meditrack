@@ -5,7 +5,7 @@
 > **Filière :** Ingénierie des Logiciels et des Systèmes d'Information — ILSI-4A  
 > **Année Universitaire :** 2026 / 2027  
 > **Encadrant :** Pr. S. Amri  
-> **Équipe :** Lhassan Oubihi (Product Owner & Lead Backend/DevOps) · Rida Dandane (Scrum Master & Lead Frontend/QA)
+> **Équipe :** Lhassan Oubihi (Product Owner & Dev Full-Stack) · Rida Dandane (Scrum Master & Dev Full-Stack)
 
 ---
 
@@ -33,7 +33,7 @@ Les établissements de santé font face à une gestion complexe des dossiers pat
 | **Génération PDF** | PDFKit (Ordonnances numériques + QR Code) |
 | **Tests** | Jest + Supertest (Backend ≥ 60% couverture), Cypress (E2E) |
 | **Conteneurisation** | Docker + Docker Compose |
-| **Gestion de projet** | Jira Software — Board Scrum : https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67 (Clé `MT`, 5 Sprints, Burndown Charts) |
+| **Gestion de projet** | Jira Software — Board Scrum : https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67 (Clé `MT`, 3 Sprints × 1 semaine, Burndown Charts) |
 
 ---
 
@@ -100,14 +100,18 @@ docker-compose up --build
 
 ## 5. Organisation Agile SCRUM & Git Workflow
 
-### Planification des 5 Sprints (2 semaines chacun)
-| Sprint | Contenu | Priorité |
+### Planification des 3 Sprints (1 semaine chacun — 3 semaines au total)
+| Sprint | Période | Contenu (Full-Stack Lhassan & Rida Dandane) |
 | :--- | :--- | :--- |
-| **Sprint 1** | Architecture MEAN Stack, authentification 2FA, gestion des rôles (RBAC), UML/BPMN | Haute |
-| **Sprint 2** | Module dossier patient (CRUD, chiffrement RGPD), interface Angular | Haute |
-| **Sprint 3** | Module rendez-vous, calendrier interactif, notifications Email/SMS | Haute |
-| **Sprint 4** | Module consultation, ordonnances numériques PDF, module Pharmacie | Moyenne |
-| **Sprint 5** | Statistiques & tableaux de bord, tests E2E Cypress, déploiement Docker, rapport | Basse |
+| **Sprint 1** | Semaine 1 (22–29 nov.) | Architecture MEAN & Docker, Auth 2FA/RBAC, UML/BPMN, Module Dossier Patient (RGPD + UI Angular) |
+| **Sprint 2** | Semaine 2 (29 nov.–06 déc.) | Rendez-vous (anti-conflit + Calendrier + Email/SMS), Consultations, Ordonnances PDF & Pharmacie |
+| **Sprint 3** | Semaine 3 (06–13 déc.) | Statistiques & Tableaux de bord Chart.js, Tests Jest ≥ 60%, Cypress E2E, Docker final & Rapport 15–20p |
+
+### Synchronisation Automatique GitHub → Jira (Burndown Chart)
+Le script [`scripts/sync_github_jira.py`](scripts/sync_github_jira.py) est exécuté automatiquement en arrière-plan via le Planificateur de tâches Windows (`MediTrack-GitHub-Jira-Sync`) toutes les 30 minutes :
+- Branche `feature/MT-XX-*` poussée → Ticket Jira passe à **En cours**
+- Pull Request ouverte mentionnant `MT-XX` → Ticket marqué **`in-review`** (ou **In Review**)
+- Pull Request mergée → Ticket passe à **Terminé(e)** (`Done`) pour un Burndown Chart cohérent jour après jour.
 
 ### Convention des Branches & Smart Commits Jira
 - `main` : Branche stable (prête pour démonstration machine)
