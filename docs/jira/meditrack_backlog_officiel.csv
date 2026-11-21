@@ -1,0 +1,247 @@
+Issue Id,Issue Type,Summary,Epic Name,Description,Priority,Story Points,Sprint,Parent,Labels,Labels,Assignee
+1,Epic,Infrastructure & Authentification / Sécurité,Infrastructure & Authentification / Sécurité,"Architecture MEAN dockerisée, authentification JWT + 2FA, gestion des rôles.",Medium,,,,E1,,Rida Dandane
+2,Epic,Dossier Patient,Dossier Patient,"Gestion complète des dossiers patients (CRUD, historique, chiffrement RGPD).",Medium,,,,E2,,Rida Dandane
+3,Epic,Rendez-vous & Notifications,Rendez-vous & Notifications,"Prise de RDV en ligne, calendrier, rappels email/SMS.",Medium,,,,E3,,Rida Dandane
+4,Epic,Consultation & Ordonnances,Consultation & Ordonnances,"Comptes-rendus, diagnostic, ordonnances numériques PDF.",Medium,,,,E4,,Rida Dandane
+5,Epic,Pharmacie,Pharmacie,Validation des ordonnances et gestion du stock de médicaments.,Medium,,,,E5,,Rida Dandane
+6,Epic,Statistiques & Tableaux de bord,Statistiques & Tableaux de bord,Tableaux de bord médecin/admin et statistiques par spécialité.,Medium,,,,E6,,Rida Dandane
+7,Epic,"Qualité, Déploiement & Documentation","Qualité, Déploiement & Documentation","Tests, déploiement Docker, README, rapport final.",Medium,,,,E7,,Rida Dandane
+8,Story,US-01 Architecture MEAN dockerisée,,"En tant que développeur, je veux une architecture MEAN dockerisée afin de démarrer tout le projet en une commande.
+
+Critères d'acceptation :
+docker-compose up --build lance Angular, Express et MongoDB sans erreur. Structure routes/controllers/services/models en place.",High,5,Sprint 1,1,E1,Binome,Rida Dandane
+9,Story,US-02 Pipeline CI GitHub Actions,,"En tant que développeur, je veux un pipeline CI afin de valider chaque push.
+
+Critères d'acceptation :
+GitHub Actions exécute lint + tests sur chaque PR.",Medium,3,Sprint 1,1,E1,DevB,Lhassan Oubihi
+10,Story,US-03 Inscription patient,,"En tant que patient, je veux créer un compte afin d'accéder à la plateforme.
+
+Critères d'acceptation :
+Formulaire validé (email unique, mot de passe fort). Mot de passe haché avec bcrypt.",High,3,Sprint 1,1,E1,Binome,Rida Dandane
+11,Story,US-04 Connexion JWT,,"En tant qu'utilisateur, je veux me connecter afin d'accéder à mon espace.
+
+Critères d'acceptation :
+Login retourne un JWT. Erreurs claires. Token expiré refusé (401).",High,3,Sprint 1,1,E1,Binome,Rida Dandane
+12,Story,US-05 Gestion des rôles,,"En tant qu'admin, je veux des rôles (Admin, Médecin, Infirmier, Patient, Pharmacien) afin de contrôler les accès.
+
+Critères d'acceptation :
+Middleware authorize(role) côté API et guards Angular. Accès interdit renvoie 403.",High,5,Sprint 1,1,E1,Binome,Rida Dandane
+13,Story,US-06 Double authentification (2FA),,"En tant qu'utilisateur, je veux une double authentification afin de sécuriser mon compte.
+
+Critères d'acceptation :
+Après login, un code TOTP ou email est demandé. Accès refusé si le code est invalide ou expiré.",High,8,Sprint 1,1,E1,DevA,Rida Dandane
+14,Story,US-07 Gestion des comptes du personnel,,"En tant qu'admin, je veux gérer les comptes du personnel afin de créer médecins, infirmiers et pharmaciens.
+
+Critères d'acceptation :
+CRUD utilisateurs réservé à l'admin. Désactivation possible.",High,3,Sprint 1,1,E1,DevB,Lhassan Oubihi
+15,Story,US-08 Création du dossier patient,,"En tant que médecin, je veux créer un dossier patient afin d'enregistrer ses informations.
+
+Critères d'acceptation :
+Champs : identité, contact, antécédents, allergies, traitements. Validation. Retourne 201.",High,5,Sprint 2,2,E2,DevA,Rida Dandane
+16,Story,US-09 Recherche et consultation de dossier,,"En tant que médecin, je veux rechercher et consulter un dossier afin d'accéder vite aux informations.
+
+Critères d'acceptation :
+Recherche par nom ou CIN. Pagination. Affichage détaillé.",High,3,Sprint 2,2,E2,DevB,Lhassan Oubihi
+17,Story,US-10 Mise à jour du dossier,,"En tant que médecin, je veux mettre à jour antécédents, allergies et traitements afin de garder le dossier à jour.
+
+Critères d'acceptation :
+Modification tracée (date, auteur). Validation des champs.",High,5,Sprint 2,2,E2,DevA,Rida Dandane
+18,Story,US-11 Archivage de dossier,,"En tant qu'admin, je veux archiver un dossier afin de respecter la conservation des données.
+
+Critères d'acceptation :
+Suppression logique (soft delete). Dossier archivé invisible dans la liste.",Medium,2,Sprint 2,2,E2,DevB,Lhassan Oubihi
+19,Story,US-12 Consultation de son propre dossier,,"En tant que patient, je veux consulter mon propre dossier afin de suivre ma santé.
+
+Critères d'acceptation :
+Accès en lecture seule à son dossier uniquement.",Medium,3,Sprint 2,2,E2,DevB,Lhassan Oubihi
+20,Story,US-13 Interface Angular par rôle,,"En tant qu'utilisateur, je veux une interface claire afin de naviguer facilement.
+
+Critères d'acceptation :
+Layout Angular Material, menu par rôle, guards de routes, gestion d'erreurs.",High,5,Sprint 2,2,E2,DevB,Lhassan Oubihi
+21,Story,US-14 Chiffrement des données sensibles (RGPD),,"En tant que responsable, je veux chiffrer les données sensibles afin de respecter le RGPD.
+
+Critères d'acceptation :
+Champs sensibles chiffrés en base (AES-256-GCM). Journal d'audit des accès aux dossiers.",High,5,Sprint 2,2,E2,DevA,Rida Dandane
+22,Story,US-15 Disponibilités du médecin,,"En tant que médecin, je veux définir mes disponibilités afin de cadrer les créneaux réservables.
+
+Critères d'acceptation :
+Jours, horaires et durée de créneau configurables.",High,3,Sprint 3,3,E3,DevB,Lhassan Oubihi
+23,Story,US-16 Réservation de RDV en ligne,,"En tant que patient, je veux réserver un RDV en ligne afin d'éviter de me déplacer.
+
+Critères d'acceptation :
+Choix du médecin, date, créneau libre. Statut initial « en attente ».",High,5,Sprint 3,3,E3,DevA,Rida Dandane
+24,Story,US-17 Gestion du statut des RDV,,"En tant que médecin, je veux confirmer, refuser ou annuler un RDV afin de gérer mon agenda.
+
+Critères d'acceptation :
+Changement de statut tracé. Le patient est informé.",High,3,Sprint 3,3,E3,DevB,Lhassan Oubihi
+25,Story,US-18 Calendrier interactif,,"En tant que médecin, je veux un calendrier interactif afin de visualiser mes RDV.
+
+Critères d'acceptation :
+Vues jour/semaine/mois (FullCalendar). Clic sur un RDV affiche le détail.",Medium,5,Sprint 3,3,E3,DevB,Lhassan Oubihi
+26,Story,US-19 Emails de confirmation et rappel,,"En tant que patient, je veux un email de confirmation et de rappel afin de ne pas oublier mon RDV.
+
+Critères d'acceptation :
+Email via Nodemailer à la confirmation et 24 h avant (tâche planifiée).",Medium,3,Sprint 3,3,E3,DevA,Rida Dandane
+27,Story,US-20 SMS de rappel,,"En tant que patient, je veux un SMS de rappel.
+
+Critères d'acceptation :
+Envoi via Twilio en mode test. Échec géré sans bloquer l'app.",Low,3,Sprint 3,3,E3,DevB,Lhassan Oubihi
+28,Story,US-21 Anti double réservation,,"En tant que système, je veux empêcher les doubles réservations.
+
+Critères d'acceptation :
+Un créneau déjà pris est refusé (409). Vérifié côté API.",High,3,Sprint 3,3,E3,DevA,Rida Dandane
+29,Story,US-22 Compte-rendu et diagnostic,,"En tant que médecin, je veux saisir un compte-rendu et un diagnostic afin de documenter la consultation.
+
+Critères d'acceptation :
+Consultation liée au RDV et au patient. Champs obligatoires validés.",High,5,Sprint 4,4,E4,DevA,Rida Dandane
+30,Story,US-23 Ordonnance numérique,,"En tant que médecin, je veux créer une ordonnance numérique afin de prescrire des médicaments.
+
+Critères d'acceptation :
+Lignes : médicament, posologie, durée. Liée à la consultation.",High,5,Sprint 4,4,E4,DevA,Rida Dandane
+31,Story,US-24 Ordonnance en PDF,,"En tant que médecin, je veux générer l'ordonnance en PDF afin de la remettre au patient.
+
+Critères d'acceptation :
+PDF avec en-tête médecin, patient, date, médicaments. Téléchargeable.",High,5,Sprint 4,4,E4,DevA,Rida Dandane
+32,Story,US-25 Historique des consultations,,"En tant que médecin, je veux voir l'historique des consultations d'un patient.
+
+Critères d'acceptation :
+Liste chronologique avec accès au détail et à l'ordonnance.",Medium,3,Sprint 4,4,E4,DevB,Lhassan Oubihi
+33,Story,US-26 Validation d'ordonnance par le pharmacien,,"En tant que pharmacien, je veux valider une ordonnance afin de délivrer les médicaments.
+
+Critères d'acceptation :
+Statut : émise > validée > délivrée. Ordonnance déjà délivrée refusée.",Medium,3,Sprint 4,5,E5,DevB,Lhassan Oubihi
+34,Story,US-27 Gestion du stock de médicaments,,"En tant que pharmacien, je veux gérer le stock de médicaments.
+
+Critères d'acceptation :
+CRUD médicaments avec quantité et seuil minimum.",Medium,5,Sprint 4,5,E5,DevB,Lhassan Oubihi
+35,Story,US-28 Décrémentation du stock et alerte seuil,,"En tant que pharmacien, je veux que le stock diminue à la délivrance, avec alerte de seuil.
+
+Critères d'acceptation :
+Décrémentation automatique. Alerte visible sous le seuil.",Low,3,Sprint 4,5,E5,DevB,Lhassan Oubihi
+36,Story,US-29 Tableau de bord médecin,,"En tant que médecin, je veux un tableau de bord afin de suivre mon activité.
+
+Critères d'acceptation :
+RDV du jour, nombre de patients, consultations du mois.",Medium,5,Sprint 5,6,E6,DevA,Rida Dandane
+37,Story,US-30 Statistiques par spécialité,,"En tant qu'admin, je veux des statistiques par spécialité.
+
+Critères d'acceptation :
+Graphiques (Chart.js) : consultations par spécialité et par période.",Low,5,Sprint 5,6,E6,DevA,Rida Dandane
+38,Story,US-31 Tests E2E Cypress,,"En tant qu'équipe, je veux des tests E2E afin de valider le parcours principal.
+
+Critères d'acceptation :
+Cypress couvre login 2FA > RDV > consultation > ordonnance.",Medium,5,Sprint 5,7,E7,DevB,Lhassan Oubihi
+39,Story,US-32 Couverture de tests unitaires 60%,,"En tant qu'équipe, je veux atteindre 60 % de couverture de tests unitaires.
+
+Critères d'acceptation :
+Rapport de couverture >= 60 % (Jest) affichable en démo.",High,5,Sprint 5,7,E7,DevB,Lhassan Oubihi
+40,Story,US-33 README et déploiement documentés,,"En tant qu'évaluateur, je veux un README et un déploiement documentés.
+
+Critères d'acceptation :
+README détaillé, docker-compose.yml final, données de démo (seed).",High,3,Sprint 5,7,E7,DevB,Lhassan Oubihi
+41,Story,US-34 Rapport final (15-20 pages),,"En tant qu'équipe, je veux rédiger le rapport final (15-20 pages).
+
+Critères d'acceptation :
+Toutes les sections exigées, UML, captures Jira et annexe docker-compose.",High,5,Sprint 5,7,E7,Binome,Rida Dandane
+42,Sub-task,US-01-T1 Init repo Git + structure backend (routes/controllers/services/models),,,,,,8,,DevA,Rida Dandane
+43,Sub-task,US-01-T2 Init projet Angular 17 + Angular Material,,,,,,8,,DevB,Lhassan Oubihi
+44,Sub-task,"US-01-T3 Dockerfiles (api, front) + docker-compose.yml avec MongoDB",,,,,,8,,DevA,Rida Dandane
+45,Sub-task,US-01-T4 Fichier .env.example + README de démarrage,,,,,,8,,DevB,Lhassan Oubihi
+46,Sub-task,US-02-T1 Workflow GitHub Actions : install + lint,,,,,,9,,DevB,Lhassan Oubihi
+47,Sub-task,US-02-T2 Étape tests Jest dans le workflow,,,,,,9,,DevB,Lhassan Oubihi
+48,Sub-task,US-02-T3 Badge CI dans le README,,,,,,9,,DevB,Lhassan Oubihi
+49,Sub-task,US-03-T1 Modèle User Mongoose (hash bcrypt avant sauvegarde),,,,,,10,,DevA,Rida Dandane
+50,Sub-task,US-03-T2 Endpoint POST /auth/register + validation,,,,,,10,,DevA,Rida Dandane
+51,Sub-task,US-03-T3 Formulaire d'inscription Angular,,,,,,10,,DevB,Lhassan Oubihi
+52,Sub-task,US-03-T4 Tests unitaires inscription,,,,,,10,,DevA,Rida Dandane
+53,Sub-task,US-04-T1 Endpoint POST /auth/login + génération JWT,,,,,,11,,DevA,Rida Dandane
+54,Sub-task,"US-04-T2 Middleware authenticate (vérif token, 401)",,,,,,11,,DevA,Rida Dandane
+55,Sub-task,US-04-T3 Page de login Angular + AuthService + intercepteur HTTP,,,,,,11,,DevB,Lhassan Oubihi
+56,Sub-task,US-04-T4 Tests unitaires login,,,,,,11,,DevB,Lhassan Oubihi
+57,Sub-task,US-05-T1 Middleware authorize(...roles) (403),,,,,,12,,DevA,Rida Dandane
+58,Sub-task,US-05-T2 Guards Angular par rôle,,,,,,12,,DevB,Lhassan Oubihi
+59,Sub-task,US-05-T3 Menu et redirection selon le rôle,,,,,,12,,DevB,Lhassan Oubihi
+60,Sub-task,US-05-T4 Tests des accès autorisés/interdits,,,,,,12,,DevA,Rida Dandane
+61,Sub-task,US-06-T1 Endpoint de génération du secret / code 2FA (speakeasy ou email),,,,,,13,,DevA,Rida Dandane
+62,Sub-task,US-06-T2 Endpoint de vérification du code + JWT final,,,,,,13,,DevA,Rida Dandane
+63,Sub-task,US-06-T3 Écran Angular de saisie du code (QR code si TOTP),,,,,,13,,DevA,Rida Dandane
+64,Sub-task,US-06-T4 Gestion des erreurs (code invalide/expiré),,,,,,13,,DevA,Rida Dandane
+65,Sub-task,US-06-T5 Tests unitaires 2FA,,,,,,13,,DevA,Rida Dandane
+66,Sub-task,US-07-T1 CRUD utilisateurs côté API (admin only),,,,,,14,,DevB,Lhassan Oubihi
+67,Sub-task,US-07-T2 Écrans Angular de gestion des comptes,,,,,,14,,DevB,Lhassan Oubihi
+68,Sub-task,US-07-T3 Activation/désactivation de compte,,,,,,14,,DevB,Lhassan Oubihi
+69,Sub-task,US-08-T1 Modèle Patient Mongoose + validation,,,,,,15,,DevA,Rida Dandane
+70,Sub-task,US-08-T2 Endpoint POST /patients (201),,,,,,15,,DevA,Rida Dandane
+71,Sub-task,US-08-T3 Formulaire de création de dossier Angular,,,,,,15,,DevA,Rida Dandane
+72,Sub-task,US-08-T4 Tests unitaires création,,,,,,15,,DevA,Rida Dandane
+73,Sub-task,US-09-T1 Endpoint GET /patients avec recherche + pagination,,,,,,16,,DevB,Lhassan Oubihi
+74,Sub-task,US-09-T2 Liste/recherche Angular (table paginée),,,,,,16,,DevB,Lhassan Oubihi
+75,Sub-task,US-09-T3 Page de détail du dossier,,,,,,16,,DevB,Lhassan Oubihi
+76,Sub-task,US-10-T1 Endpoint PUT /patients/:id + historique de modification,,,,,,17,,DevA,Rida Dandane
+77,Sub-task,US-10-T2 Formulaire de mise à jour Angular,,,,,,17,,DevA,Rida Dandane
+78,Sub-task,US-10-T3 Tests unitaires modification,,,,,,17,,DevA,Rida Dandane
+79,Sub-task,US-11-T1 Champ isArchived + endpoint d'archivage (soft delete),,,,,,18,,DevB,Lhassan Oubihi
+80,Sub-task,US-11-T2 Filtre des archivés dans les listes + bouton Angular,,,,,,18,,DevB,Lhassan Oubihi
+81,Sub-task,US-12-T1 Endpoint GET /patients/me (lecture seule),,,,,,19,,DevB,Lhassan Oubihi
+82,Sub-task,US-12-T2 Page « Mon dossier » Angular,,,,,,19,,DevB,Lhassan Oubihi
+83,Sub-task,"US-13-T1 Layout Angular Material (header, sidenav)",,,,,,20,,DevB,Lhassan Oubihi
+84,Sub-task,US-13-T2 Gestion centralisée des erreurs (intercepteur + snackbar),,,,,,20,,DevB,Lhassan Oubihi
+85,Sub-task,US-13-T3 Routing + lazy loading des modules,,,,,,20,,DevB,Lhassan Oubihi
+86,Sub-task,US-14-T1 Util crypto AES-256-GCM (encrypt/decrypt) + tests,,,,,,21,,DevA,Rida Dandane
+87,Sub-task,US-14-T2 Chiffrement des champs sensibles dans le modèle Patient + cinHash,,,,,,21,,DevA,Rida Dandane
+88,Sub-task,US-14-T3 Modèle AuditLog + middleware audit,,,,,,21,,DevA,Rida Dandane
+89,Sub-task,US-14-T4 Brancher l'audit sur les routes Patient + endpoint GET /audit-logs (admin),,,,,,21,,DevA,Rida Dandane
+90,Sub-task,"US-14-T5 Tests (déchiffrement, log créé)",,,,,,21,,DevA,Rida Dandane
+91,Sub-task,"US-15-T1 Modèle Disponibilité (jours, horaires, durée de créneau)",,,,,,22,,DevB,Lhassan Oubihi
+92,Sub-task,US-15-T2 Endpoints CRUD disponibilités,,,,,,22,,DevB,Lhassan Oubihi
+93,Sub-task,US-15-T3 Écran Angular de configuration,,,,,,22,,DevB,Lhassan Oubihi
+94,Sub-task,US-16-T1 Modèle RendezVous + calcul des créneaux libres,,,,,,23,,DevA,Rida Dandane
+95,Sub-task,US-16-T2 Endpoint POST /rendezvous,,,,,,23,,DevA,Rida Dandane
+96,Sub-task,"US-16-T3 Écran de réservation Angular (médecin, date, créneau)",,,,,,23,,DevA,Rida Dandane
+97,Sub-task,US-16-T4 Tests unitaires réservation,,,,,,23,,DevA,Rida Dandane
+98,Sub-task,US-17-T1 Endpoint PATCH /rendezvous/:id/statut (confirmer/refuser/annuler),,,,,,24,,DevB,Lhassan Oubihi
+99,Sub-task,US-17-T2 Boutons et liste des RDV côté médecin,,,,,,24,,DevB,Lhassan Oubihi
+100,Sub-task,US-18-T1 Intégrer FullCalendar dans Angular,,,,,,25,,DevB,Lhassan Oubihi
+101,Sub-task,US-18-T2 Alimenter le calendrier depuis l'API,,,,,,25,,DevB,Lhassan Oubihi
+102,Sub-task,US-18-T3 Détail du RDV au clic,,,,,,25,,DevB,Lhassan Oubihi
+103,Sub-task,US-19-T1 Service email Nodemailer + templates,,,,,,26,,DevA,Rida Dandane
+104,Sub-task,US-19-T2 Envoi à la confirmation du RDV,,,,,,26,,DevA,Rida Dandane
+105,Sub-task,US-19-T3 Tâche planifiée de rappel J-1 (node-cron),,,,,,26,,DevA,Rida Dandane
+106,Sub-task,US-20-T1 Service SMS Twilio (mode test),,,,,,27,,DevB,Lhassan Oubihi
+107,Sub-task,US-20-T2 Gestion d'échec sans bloquer l'app,,,,,,27,,DevB,Lhassan Oubihi
+108,Sub-task,"US-21-T1 Contrainte d'unicité sur (médecin, date, créneau)",,,,,,28,,DevA,Rida Dandane
+109,Sub-task,US-21-T2 Retour 409 + message d'erreur côté Angular,,,,,,28,,DevA,Rida Dandane
+110,Sub-task,US-21-T3 Test de concurrence/double réservation,,,,,,28,,DevA,Rida Dandane
+111,Sub-task,US-22-T1 Modèle Consultation (lié RDV + patient),,,,,,29,,DevA,Rida Dandane
+112,Sub-task,US-22-T2 Endpoint POST /consultations + validation,,,,,,29,,DevA,Rida Dandane
+113,Sub-task,US-22-T3 Formulaire compte-rendu/diagnostic Angular,,,,,,29,,DevA,Rida Dandane
+114,Sub-task,"US-23-T1 Modèle Ordonnance (lignes médicament, posologie, durée)",,,,,,30,,DevA,Rida Dandane
+115,Sub-task,US-23-T2 Endpoint POST /ordonnances,,,,,,30,,DevA,Rida Dandane
+116,Sub-task,US-23-T3 Formulaire d'ordonnance Angular (lignes dynamiques),,,,,,30,,DevA,Rida Dandane
+117,Sub-task,US-24-T1 Génération PDF côté API (pdfkit),,,,,,31,,DevA,Rida Dandane
+118,Sub-task,US-24-T2 Endpoint GET /ordonnances/:id/pdf,,,,,,31,,DevA,Rida Dandane
+119,Sub-task,US-24-T3 Bouton de téléchargement Angular,,,,,,31,,DevA,Rida Dandane
+120,Sub-task,US-25-T1 Endpoint GET /patients/:id/consultations,,,,,,32,,DevB,Lhassan Oubihi
+121,Sub-task,US-25-T2 Timeline des consultations Angular,,,,,,32,,DevB,Lhassan Oubihi
+122,Sub-task,US-26-T1 Statuts d'ordonnance + endpoint de validation/délivrance,,,,,,33,,DevB,Lhassan Oubihi
+123,Sub-task,US-26-T2 Écran pharmacien : liste des ordonnances,,,,,,33,,DevB,Lhassan Oubihi
+124,Sub-task,US-27-T1 Modèle Médicament + CRUD API,,,,,,34,,DevB,Lhassan Oubihi
+125,Sub-task,US-27-T2 Écrans Angular de gestion du stock,,,,,,34,,DevB,Lhassan Oubihi
+126,Sub-task,US-28-T1 Décrémentation du stock à la délivrance (transaction),,,,,,35,,DevB,Lhassan Oubihi
+127,Sub-task,US-28-T2 Badge d'alerte sous le seuil,,,,,,35,,DevB,Lhassan Oubihi
+128,Sub-task,"US-29-T1 Endpoints d'agrégation (RDV du jour, patients, consultations du mois)",,,,,,36,,DevA,Rida Dandane
+129,Sub-task,US-29-T2 Tableau de bord médecin Angular (cartes KPI),,,,,,36,,DevA,Rida Dandane
+130,Sub-task,US-30-T1 Agrégation par spécialité et période (pipeline MongoDB),,,,,,37,,DevA,Rida Dandane
+131,Sub-task,US-30-T2 Graphiques Chart.js dans Angular,,,,,,37,,DevA,Rida Dandane
+132,Sub-task,US-31-T1 Installer et configurer Cypress,,,,,,38,,DevB,Lhassan Oubihi
+133,Sub-task,US-31-T2 Scénario E2E : login 2FA > RDV > consultation > ordonnance,,,,,,38,,DevB,Lhassan Oubihi
+134,Sub-task,US-31-T3 Seed de données de test,,,,,,38,,DevB,Lhassan Oubihi
+135,Sub-task,US-32-T1 Compléter les tests unitaires services/controllers,,,,,,39,,DevB,Lhassan Oubihi
+136,Sub-task,US-32-T2 Tests des composants Angular clés,,,,,,39,,DevB,Lhassan Oubihi
+137,Sub-task,US-32-T3 Générer le rapport de couverture (>= 60 %),,,,,,39,,DevB,Lhassan Oubihi
+138,Sub-task,"US-33-T1 README détaillé (installation, variables, comptes de démo)",,,,,,40,,DevB,Lhassan Oubihi
+139,Sub-task,"US-33-T2 Script de seed (users par rôle, patients, RDV)",,,,,,40,,DevB,Lhassan Oubihi
+140,Sub-task,US-33-T3 Vérifier docker-compose up --build sur machine propre,,,,,,40,,DevB,Lhassan Oubihi
+141,Sub-task,"US-34-T1 Rédiger introduction, besoins, conception UML/BPMN",,,,,,41,,DevB,Lhassan Oubihi
+142,Sub-task,"US-34-T2 Rédiger architecture, SCRUM/Jira, code commenté",,,,,,41,,DevA,Rida Dandane
+143,Sub-task,"US-34-T3 Captures Jira (backlog, burndown, rétros) + annexe docker-compose",,,,,,41,,DevB,Lhassan Oubihi
+144,Sub-task,US-34-T4 Relecture croisée + mise en page finale,,,,,,41,,DevA,Rida Dandane

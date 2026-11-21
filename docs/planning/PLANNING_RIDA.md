@@ -1,200 +1,200 @@
-# Planning Quotidien Antigravity — Rida Dandane (Modules Complets en Parallèle)
+# Planning Quotidien Antigravity — Rida Dandane (`DevA`)
 
-> **Rôle :** Scrum Master (SM) + Développeur Full-Stack (Frontend Angular 17 + Backend Node.js/MongoDB)  
-> **Mes Modules Complets (Back + Front) :**  
-> 1. **Sprint 1 :** Socle Angular 17 + **Module Dossier Patient RGPD complet (Back + Front)** (`MT-9`, `MT-14`, `MT-15`, `MT-16`, `MT-17`)  
-> 2. **Sprint 2 :** **Modules Consultations, Ordonnances PDF & Pharmacie complets (Back + Front)** (`MT-22`, `MT-23`, `MT-24`, `MT-25`, `MT-26`)  
-> 3. **Sprint 3 :** **Pôle Qualité, Tests (Back Jest ≥ 60% + Front Cypress E2E) & Docker Final** (`MT-29`, `MT-30`) + contribution `MT-31`  
+> **Profil :** `DevA` — Full-Stack (Backend Node.js/Express/MongoDB + Frontend Angular 17 + Sécurité RGPD & Analytics)  
 > **Identité Git :** `Rida Dandane`  
 > **Dépôt GitHub :** `https://github.com/lhassanoubihi/meditrack`  
-> **Board Jira (`MT`) :** `https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67`
+> **Board Jira (`MT`) :** `https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67`  
+> **Source officielle :** `docs/jira/meditrack_backlog_officiel.csv` *(5 Sprints · 34 Stories · 103 Sous-tâches)*
 
 ---
 
-## Protocole Obligatoire pour l'Agent Antigravity de Rida Dandane
+## Protocole Obligatoire pour l'Agent Antigravity de Rida Dandane (`DevA`)
 
 **À LIRE IMPÉRATIVEMENT PAR L'AGENT ANTIGRAVITY DE RIDA AVANT CHAQUE TÂCHE :**
+*(Aucun script automatique ne tourne sur PC : tu exécutes tout proprement quand Rida t'ouvre chaque jour.)*
 
 1. **VÉRIFICATION OBLIGATOIRE DU TEMPS / DE LA DATE :**
-   Exécute d'abord une commande pour lire la date et l'heure réelles de la machine :
    ```powershell
    Get-Date -Format "yyyy-MM-dd HH:mm"
    ```
    *(ou sous Linux/macOS : `date +"%Y-%m-%d %H:%M"`)*
-   - Compare la date système avec le tableau jour par jour ci-dessous (du **22 nov. 2026** au **13 déc. 2026**).
-   - **Si la date système ne correspond pas au jour demandé par Rida**, **arrête-toi et préviens Rida** avant de modifier du code ou de fermer le ticket, afin que le **Burndown Chart Jira** reste réaliste et cohérent jour après jour.
-   - Ne réalise **que la tâche du jour en cours**.
+   - Compare la date système réelle avec le planning ci-dessous (du **22 nov. 2026** au **13 déc. 2026**).
+   - **Si la date système ne correspond pas au jour demandé par Rida**, **avertis-le avant de coder ou de fermer le ticket** pour garder un **Burndown Chart Jira** cohérent jour par jour.
+   - Ne réalise **que les sous-tâches `DevA` du jour en cours**.
 
-2. **Synchroniser `develop` & créer la branche du jour :**
+2. **Synchroniser Git & créer la branche du jour :**
    ```bash
    git config user.name "Rida Dandane"
    git checkout develop && git pull origin develop
-   git checkout -b feature/MT-XX-description
+   git checkout -b feature/MT-XX-usYY-description
    ```
 
-3. **Passer le ticket Jira à `En cours` :**
-   - Pousse la branche (`git push -u origin feature/MT-XX-description`) ou transitionne `MT-XX` vers **`En cours`** sur le Board Jira `MT`.
+3. **Passer le ticket Jira (et ses sous-tâches `DevA`) à `En cours` (`In Progress`) :**
+   - Dans Jira (`MT`) avant de commencer le code.
 
-4. **Développer uniquement les fichiers de son module + Tests :**
-   - Comme chaque module est complet et indépendant, tu n'as **aucune attente bloquante** sur le code de Lhassan du même jour.
-   - Lance toujours `npm test` (Backend) ou `npm run build` (Frontend) avant de commiter.
+4. **Implémenter exactement les sous-tâches `DevA` du jour + Tests / Build** (`npm test`, `ng build`, lint).
 
 5. **Committer avec la clé Jira, pousser et ouvrir la Pull Request vers `develop` :**
    ```bash
    git add .
-   git commit -m "MT-XX feat(module): description claire"
-   git push -u origin feature/MT-XX-description
-   gh pr create --base develop --head feature/MT-XX-description --title "MT-XX : Titre Story" --body "Closes #<issue_gh>"
+   git commit -m "MT-XX feat(module): US-YY description"
+   git push -u origin feature/MT-XX-usYY-description
+   gh pr create --base develop --head feature/MT-XX-usYY-description --title "MT-XX : US-YY Titre" --body "Closes #<issue_gh>"
    ```
-   - Passe le ticket Jira `MT-XX` à **`In Review`** (ou ajoute le label `in-review`).
+   - Marquer le ticket Jira **`In Review`** (ou label `in-review`).
 
-6. **Revue croisée & Merge de la PR de Lhassan Oubihi (fin de journée) :**
-   - Liste les PR ouvertes (`gh pr list --state open`), vérifie le code et la CI de Lhassan, puis merge sa PR (`gh pr merge <num> --merge --delete-branch`).
-   - Passe le ticket mergé à **`Terminé(e)`** (`Done`) et vérifie la descente du Burndown Chart (rôle Scrum Master).
+6. **Revue croisée de la PR de Lhassan Oubihi (`DevB`) en fin de journée :**
+   - Vérifier `gh pr list --state open`, contrôler la CI GitHub Actions et le diff, puis merger (`gh pr merge <num> --merge --delete-branch`).
+   - Passer le ticket Jira mergé (et les sous-tâches complétées) à **`Terminé(e)`** (`Done`).
 
 ---
 
-## SPRINT 1 — Semaine 1 : Socle Angular 17 + Module Dossier Patient RGPD Complet
+## SPRINT 1 — Semaine 1 (Dim 22 nov. → Mer 25 nov. 2026)
 
 ### Jour 1 — Dimanche 22 novembre 2026
-- **Tâche :** `MT-9` (`#2`) — **Initialisation Frontend Angular 17, Angular Material & Layout** *(Frontend · 5 pts)*
-- **Branche :** `feature/MT-9-angular17-setup`
-- **À faire :**
-  - Initialiser Angular 17 dans `frontend/` (`--standalone --routing --style=scss`), installer `@angular/material`, configurer le thème médical, Navbar/Sidebar responsive par rôle, `environment.ts` et intercepteur HTTP JWT de base.
-  - Configurer `frontend/Dockerfile` en build multi-étapes (Node 20 → Nginx) et vérifier `npm run build`.
-- **Commit :** `MT-9 feat(ui): initialize Angular 17 app with Material medical theme and layout`
-- **Fin de journée :** Ouvrir PR `MT-9` → Relire et merger la PR `MT-8` de **Lhassan Oubihi** (Docker/MEAN).
+- **US-01 (`MT-39`, `#1` · Binôme · 5 pts)** — Branche `feature/MT-39-us01-backend-docker` :
+  - `US-01-T1` : Structure complète backend (`routes/`, `controllers/`, `services/`, `models/`, `middlewares/`, `config/`).
+  - `US-01-T3` : `Dockerfiles` (API + Front) et `docker-compose.yml` avec MongoDB persistant.
+- **Fin J1 :** Ouvrir PR `MT-39` → Relire & merger les PRs `US-01` (`T2,T4`) & **US-02 (`MT-40`)** (CI GitHub Actions) de Lhassan.
 
 ### Jour 2 — Lundi 23 novembre 2026
-- **Tâche :** `MT-14` (`#7`) — **Modèle Mongoose Patient & Chiffrement RGPD AES-256** *(Backend · 5 pts)*
-- **Branche :** `feature/MT-14-patient-model-rgpd`
-- **À faire :**
-  - Créer `backend/src/utils/encryption.js` (chiffrement/déchiffrement AES-256 avec `ENCRYPTION_KEY` du `.env`).
-  - Créer `backend/src/models/Patient.js` (identité, CIN, groupe sanguin, antécédents, allergies, traitements chiffrés en base).
-  - Écrire `backend/tests/encryption.test.js` et vérifier `npm test`.
-- **Commit :** `MT-14 feat(rgpd): add Patient Mongoose model with AES-256 sensitive data encryption`
-- **Fin de journée :** Ouvrir PR `MT-14` → Relire et merger la PR `MT-10` de **Lhassan Oubihi** (Auth JWT + 2FA).
+- **US-03 (`MT-41`, `#3` · Binôme · 3 pts)** — Branche `feature/MT-41-us03-register-api` :
+  - `US-03-T1` : Modèle `User` Mongoose (hash `bcrypt` avant sauvegarde).
+  - `US-03-T2` : Endpoint `POST /auth/register` + validation (email unique, mot de passe fort).
+  - `US-03-T4` : Tests unitaires inscription (Jest).
+- **US-04 (`MT-42`, `#4` · Binôme · 3 pts)** — Branche `feature/MT-42-us04-login-jwt` :
+  - `US-04-T1` : Endpoint `POST /auth/login` + génération JWT.
+  - `US-04-T2` : Middleware `authenticate` (vérification token, retour `401` si expiré/invalide).
+- **Fin J2 :** Ouvrir PRs `MT-41` & `MT-42` → Relire & merger les PRs Angular `US-03` (`T3`) & `US-04` (`T3,T4`) de Lhassan.
 
 ### Jour 3 — Mardi 24 novembre 2026
-- **Tâche :** `MT-15` (`#8`) — **API REST CRUD Dossier Patient + Recherche & Tests Jest** *(Backend · 5 pts)*
-- **Branche :** `feature/MT-15-api-patients-crud`
-- **Prérequis :** `MT-14` mergé dans `develop` (plus `MT-10`/`MT-11` si déjà mergés pour les middlewares RBAC, sinon appliquer après merge).
-- **À faire :**
-  - Créer `backend/src/controllers/patient.controller.js` et `backend/src/routes/patient.routes.js` (`POST /GET /PUT /DELETE /api/patients`, recherche nom/CIN, pagination, déchiffrement sécurisé selon rôle).
-  - Écrire `backend/tests/patient.test.js` et vérifier `npm test`.
-- **Commit :** `MT-15 feat(patients): add CRUD endpoints, search, pagination and Jest tests`
-- **Fin de journée :** Ouvrir PR `MT-15` → Relire et merger la PR `MT-11` de **Lhassan Oubihi** (Users & RBAC).
+- **US-05 (`MT-43`, `#5` · Binôme · 5 pts)** — Branche `feature/MT-43-us05-authorize-rbac` :
+  - `US-05-T1` : Middleware `authorize(...roles)` renvoyant `403`.
+  - `US-05-T4` : Tests unitaires des accès autorisés / interdits.
+- **US-06 (`MT-44`, `#6` · DevA · 8 pts — partie 1/2)** — Branche `feature/MT-44-us06-2fa` :
+  - `US-06-T1` : Endpoint génération du secret / code 2FA (`speakeasy` TOTP ou OTP email).
+  - `US-06-T2` : Endpoint vérification du code 2FA + émission du JWT final.
+- **Fin J3 :** Ouvrir PR `MT-43` → Relire & merger `US-05` (`T2,T3`) & **US-07 (`MT-45`)** de Lhassan.
 
-### Jour 4 — Mercredi 25 novembre 2026
-- **Tâche :** `MT-16` (`#9`) — **Interface Angular Liste, Recherche & Fiche Dossier Patient** *(Frontend · 8 pts — partie 1/2)*
-- **Branche :** `feature/MT-16-ui-patient-list`
-- **Prérequis :** `MT-9` et `MT-15` mergés dans `develop`.
-- **À faire :**
-  - Créer `services/patient.service.ts` et `components/patients/patient-list` (`MatTable` avec recherche par nom/CIN, tri, pagination).
-- **Fin de journée :** Relire et merger la PR `MT-12` de **Lhassan Oubihi** (UI Login/2FA/Profil).
+### Jour 4 — Mercredi 25 novembre 2026 *(Fin Sprint 1)*
+- **US-06 (`MT-44`, `#6` · DevA · 8 pts — partie 2/2)** — Branche `feature/MT-44-us06-2fa` :
+  - `US-06-T3` : Écran Angular de saisie du code 2FA (QR code si TOTP).
+  - `US-06-T4` : Gestion des erreurs (code invalide ou expiré).
+  - `US-06-T5` : Tests unitaires 2FA.
+- **Fin J4 :** Ouvrir PR `MT-44` → Clôture Sprint 1 avec Lhassan (**Complete Sprint 1 → Start Sprint 2**).
+
+---
+
+## SPRINT 2 — (Jeu 26 nov. → Dim 29 nov. 2026)
 
 ### Jour 5 — Jeudi 26 novembre 2026
-- **Tâche :** `MT-16` (`#9`) — **Fiche Médicale Détaillée Patient (Onglets)** *(Frontend · 8 pts — partie 2/2)*
-- **Branche :** `feature/MT-16-ui-patient-list`
-- **À faire :**
-  - Créer `components/patients/patient-detail` (onglets Identité, Antécédents, Allergies, Traitements en cours), relier les routes et vérifier `npm run build`.
-- **Commit :** `MT-16 feat(ui-patients): implement patient table with search and detailed medical view`
-- **Fin de journée :** Ouvrir PR `MT-16` → Relire et merger la PR `MT-13` de **Lhassan Oubihi** (UML & BPMN).
+- **US-08 (`MT-46`, `#8` · DevA · 5 pts)** — Branche `feature/MT-46-us08-create-patient` :
+  - `US-08-T1` : Modèle `Patient` Mongoose + validation (identité, contact, antécédents, allergies, traitements).
+  - `US-08-T2` : Endpoint `POST /patients` (retourne `201`).
+  - `US-08-T3` : Formulaire Angular de création de dossier patient.
+  - `US-08-T4` : Tests unitaires création patient.
+- **Fin J5 :** Ouvrir PR `MT-46` → Relire & merger **US-13 (`MT-51`)** de Lhassan.
 
 ### Jour 6 — Vendredi 27 novembre 2026
-- **Tâche :** `MT-17` (`#10`) — **Formulaires Angular Création & Édition Dossier Patient** *(Frontend · 5 pts)*
-- **Branche :** `feature/MT-17-ui-patient-forms`
-- **Prérequis :** `MT-16` mergé dans `develop`.
-- **À faire :**
-  - Créer `components/patients/patient-form` avec Reactive Forms + `FormArray` dynamiques (ajout/suppression d'antécédents, allergies, traitements) + `MatSnackBar` + vérification `npm run build`.
-- **Commit :** `MT-17 feat(ui-patients): complete dynamic reactive forms for patient creation and editing`
-- **Fin de journée :** Ouvrir PR `MT-17` vers `develop` (Lhassan la merge après validation).
+- **US-10 (`MT-48`, `#10` · DevA · 5 pts)** — Branche `feature/MT-48-us10-update-patient` :
+  - `US-10-T1` : Endpoint `PUT /patients/:id` + historique de modification tracé (date, auteur).
+  - `US-10-T2` : Formulaire Angular de mise à jour du dossier.
+  - `US-10-T3` : Tests unitaires modification.
+- **Fin J6 :** Ouvrir PR `MT-48` → Relire & merger **US-09 (`MT-47`)** de Lhassan.
 
-### Jour 7 — Samedi 28 / Dimanche 29 novembre 2026 *(Clôture Sprint 1 — Scrum Master)*
-- Vérifier les 10 tickets Sprint 1 en **`Terminé(e)`**, animer Review + Rétro, capturer le **Burndown Chart Sprint 1**, **Terminer Sprint 1 → Démarrer Sprint 2**.
+### Jour 7 — Samedi 28 novembre 2026
+- **US-14 (`MT-52`, `#14` · DevA · 5 pts)** — Branche `feature/MT-52-us14-rgpd-audit` :
+  - `US-14-T1` : Utilitaire crypto **AES-256-GCM** (`encrypt` / `decrypt`) + tests.
+  - `US-14-T2` : Chiffrement des champs sensibles dans le modèle `Patient` + `cinHash` pour la recherche.
+  - `US-14-T3` : Modèle `AuditLog` + middleware d'audit.
+  - `US-14-T4` : Brancher l'audit sur les routes Patient + endpoint `GET /audit-logs` (Admin).
+  - `US-14-T5` : Tests (déchiffrement vérifié, log d'audit créé).
+- **Fin J7 :** Ouvrir PR `MT-52` → Relire & merger **US-11 (`MT-49`)** & **US-12 (`MT-50`)** de Lhassan.
 
----
-
-## SPRINT 2 — Semaine 2 : Modules Complets Consultations, Ordonnances PDF & Pharmacie
-
-### Jour 8 — Lundi 30 novembre 2026
-- **Tâche :** `MT-22` (`#15`) — **API REST Consultations : Compte-rendu & Diagnostic** *(Backend · 5 pts)*
-- **Branche :** `feature/MT-22-api-consultations`
-- **À faire :**
-  - Créer `backend/src/models/Consultation.js`, `Prescription.js`, `consultation.controller.js` et `consultation.routes.js` (signes vitaux, diagnostic, médicaments prescrits, historique par patient) + `backend/tests/consultation.test.js`.
-- **Commit :** `MT-22 feat(consultations): implement consultations and prescriptions REST API`
-- **Fin de journée :** Ouvrir PR `MT-22` → Relire et merger la PR `MT-18` de **Lhassan Oubihi** (API RDV anti-conflit).
-
-### Jour 9 — Mardi 1er décembre 2026
-- **Tâche :** `MT-23` (`#16`) — **Génération Ordonnance Numérique PDF & QR Code** *(Backend · 5 pts)*
-- **Branche :** `feature/MT-23-prescription-pdf-qr`
-- **Prérequis :** `MT-22` mergé dans `develop`.
-- **À faire :**
-  - Créer `backend/src/services/pdf.service.js` avec `pdfkit` + QR Code de vérification + endpoint `GET /api/prescriptions/:id/pdf` + test Jest vérifiant l'en-tête `%PDF-`.
-- **Commit :** `MT-23 feat(pdf): generate signed digital prescription PDF with QR verification`
-- **Fin de journée :** Ouvrir PR `MT-23` → Relire et merger la PR `MT-19` de **Lhassan Oubihi** (Notifications Email/SMS).
-
-### Jour 10 — Mercredi 2 décembre 2026
-- **Tâche :** `MT-24` (`#17`) — **API REST Pharmacie : Validation Ordonnance & Stock Médicaments** *(Backend · 5 pts)*
-- **Branche :** `feature/MT-24-api-pharmacy-stock`
-- **Prérequis :** `MT-22` mergé dans `develop`.
-- **À faire :**
-  - Créer `backend/src/models/Medication.js`, CRUD `/api/medications`, et `PATCH /api/prescriptions/:id/dispense` (décrémente le stock, bloque double délivrance et alerte seuil critique) + `backend/tests/pharmacy.test.js`.
-- **Commit :** `MT-24 feat(pharmacy): add medication inventory CRUD and prescription dispensing`
-- **Fin de journée :** Ouvrir PR `MT-24` vers `develop`.
-
-### Jour 11 — Jeudi 3 décembre 2026
-- **Tâche :** `MT-25` (`#18`) — **Interface Médecin Saisie Consultation & Ordonnance PDF** *(Frontend · 5 pts)*
-- **Branche :** `feature/MT-25-ui-consultation-pdf`
-- **Prérequis :** `MT-22` et `MT-23` mergés dans `develop`.
-- **À faire :**
-  - Créer `services/consultation.service.ts` et `components/consultations/consultation-form` (signes vitaux, diagnostic, `FormArray` médicaments/posologies, bouton **Télécharger Ordonnance PDF**) + `ng build`.
-- **Commit :** `MT-25 feat(ui-consultation): add doctor consultation form and PDF download`
-- **Fin de journée :** Ouvrir PR `MT-25` → Relire et merger la PR `MT-20` de **Lhassan Oubihi** (Calendrier interactif).
-
-### Jour 12 — Vendredi 4 décembre 2026
-- **Tâche :** `MT-26` (`#19`) — **Interface Pharmacien Validation Ordonnances & Stocks** *(Frontend · 5 pts)*
-- **Branche :** `feature/MT-26-ui-pharmacy`
-- **Prérequis :** `MT-24` mergé dans `develop`.
-- **À faire :**
-  - Créer `services/pharmacy.service.ts` et composants `pharmacy-orders` (file des ordonnances à délivrer + bouton Valider) & `medication-stock` (CRUD stock avec badge rouge alerte si `stock <= seuilMin`) + `ng build`.
-- **Commit :** `MT-26 feat(ui-pharmacy): implement pharmacist prescription validation and stock alerts`
-- **Fin de journée :** Ouvrir PR `MT-26` → Relire et merger la PR `MT-21` de **Lhassan Oubihi** (Statuts RDV).
-
-### Jours 13–14 — Samedi 5 / Dimanche 6 décembre 2026 *(Clôture Sprint 2 — Scrum Master)*
-- Vérifier les 9 tickets Sprint 2 en **`Terminé(e)`**, capturer le **Burndown Chart Sprint 2**, **Terminer Sprint 2 → Démarrer Sprint 3**.
+### Jour 8 — Dimanche 29 novembre 2026 *(Clôture Sprint 2)*
+- Vérifier les 7 Stories Sprint 2 en **Terminé(e)**, capturer Burndown Chart Sprint 2, **Complete Sprint 2 → Start Sprint 3**.
 
 ---
 
-## SPRINT 3 — Semaine 3 : Pôle Complet Qualité, Tests (Jest + Cypress) & Docker Final
+## SPRINT 3 — (Lun 30 nov. → Jeu 03 déc. 2026)
 
-### Jour 15 — Lundi 7 décembre 2026
-- **Tâche :** `MT-29` (`#22`) — **Couverture Tests Unitaires ≥ 60% & Durcissement Sécurité** *(Backend / DevOps · 5 pts — partie 1/2)*
-- **Branche :** `feature/MT-29-tests-coverage-docker`
-- **À faire :**
-  - Exécuter `cd backend && npm test` (Jest coverage), combler les tests manquants sur contrôleurs/services/middlewares pour dépasser `60%`.
-- **Fin de journée :** Relire et merger la PR `MT-27` de **Lhassan Oubihi** (API Stats).
+### Jour 9 — Lundi 30 novembre 2026
+- **US-16 (`MT-54`, `#16` · DevA · 5 pts)** — Branche `feature/MT-54-us16-booking-rdv` :
+  - `US-16-T1` : Modèle `RendezVous` + calcul des créneaux libres.
+  - `US-16-T2` : Endpoint `POST /rendezvous` (statut initial « en attente »).
+  - `US-16-T3` : Écran de réservation Angular (médecin, date, créneau).
+  - `US-16-T4` : Tests unitaires réservation.
+- **Fin J9 :** Ouvrir PR `MT-54` → Relire & merger **US-15 (`MT-53`)** de Lhassan.
 
-### Jour 16 — Mardi 8 décembre 2026
-- **Tâche :** `MT-29` (`#22`) — **Finalisation Couverture ≥ 60%, HTTPS & Docker Final** *(Backend / DevOps · 5 pts — partie 2/2)*
-- **Branche :** `feature/MT-29-tests-coverage-docker`
-- **À faire :**
-  - Vérifier `npm test >= 60%` global, durcir headers/CORS/SSL Nginx et valider `docker-compose up --build`.
-- **Commit :** `MT-29 test(backend): reach >=60% Jest coverage and harden Docker config`
-- **Fin de journée :** Ouvrir PR `MT-29` → Relire et merger la PR `MT-28` de **Lhassan Oubihi** (Dashboard Chart.js).
+### Jour 10 — Mardi 1er décembre 2026
+- **US-21 (`MT-59`, `#21` · DevA · 3 pts)** — Branche `feature/MT-59-us21-anti-double-booking` :
+  - `US-21-T1` : Contrainte d'unicité sur `(médecin, date, créneau)`.
+  - `US-21-T2` : Retour HTTP `409 Conflict` + message d'erreur clair côté Angular.
+  - `US-21-T3` : Test de concurrence / double réservation.
+- **Fin J10 :** Ouvrir PR `MT-59` → Relire & merger **US-17 (`MT-55`)** & **US-20 (`MT-58`)** de Lhassan.
 
-### Jour 17–18 — Mercredi 9 & Jeudi 10 décembre 2026
-- **Tâche :** `MT-30` (`#23`) — **Tests E2E Cypress : Scénario Complet de Démonstration** *(Frontend / QA · 5 pts)*
-- **Branche :** `feature/MT-30-cypress-e2e`
-- **À faire :**
-  - **J17 :** Installer & configurer Cypress dans `frontend/` + écrire tests Login/2FA/Patient/RDV.
-  - **J18 :** Compléter scénario Consultation + PDF + Pharmacie + Dashboard Statistiques, exécuter la suite complète 100 % verte.
-- **Commit :** `MT-30 test(e2e): add Cypress end-to-end suite for full medical workflow`
-- **Fin de journée J18 :** Ouvrir PR `MT-30` vers `develop`.
+### Jour 11 — Mercredi 2 décembre 2026
+- **US-19 (`MT-57`, `#19` · DevA · 3 pts)** — Branche `feature/MT-57-us19-email-cron` :
+  - `US-19-T1` : Service email **Nodemailer** + templates HTML.
+  - `US-19-T2` : Envoi automatique à la confirmation du RDV.
+  - `US-19-T3` : Tâche planifiée backend (`node-cron`) de rappel 24h avant (J-1).
+- **Fin J11 :** Ouvrir PR `MT-57` → Relire & merger **US-18 (`MT-56`)** (FullCalendar) de Lhassan.
 
-### Jour 19 — Vendredi 11 décembre 2026
-- **Tâche :** Contribution `MT-31` (`#24`) — **Captures Jira (Burndown Charts & Vélocité) + Relecture Rapport** *(partagé avec Lhassan)*
-- **À faire :** Exporter les captures du Board Jira, des **Burndown Charts (Sprints 1–3)** et du **Velocity Chart** dans `docs/rapport/`, relire les diagrammes UML/BPMN et merger la PR `MT-31` de Lhassan.
+### Jour 12 — Jeudi 3 décembre 2026 *(Clôture Sprint 3)*
+- Valider Sprint 3, capture Burndown Chart Sprint 3, **Complete Sprint 3 → Start Sprint 4**.
 
-### Jours 20–21 — Samedi 12 / Dimanche 13 décembre 2026 *(Clôture Sprint 3 & Soutenance)*
-- **Terminer Sprint 3** dans Jira, vérifier la checklist 7/7 de Pr. S. Amri et répéter la démo machine complète avec Lhassan.
+---
+
+## SPRINT 4 — (Ven 04 déc. → Lun 07 déc. 2026)
+
+### Jour 13 — Vendredi 4 décembre 2026
+- **US-22 (`MT-60`, `#22` · DevA · 5 pts)** — Branche `feature/MT-60-us22-consultations` :
+  - `US-22-T1` : Modèle `Consultation` (lié RDV + patient).
+  - `US-22-T2` : Endpoint `POST /consultations` + validation des champs obligatoires.
+  - `US-22-T3` : Formulaire compte-rendu / diagnostic Angular.
+- **Fin J13 :** Ouvrir PR `MT-60` → Relire & merger **US-27 (`MT-65`)** de Lhassan.
+
+### Jour 14 — Samedi 5 décembre 2026
+- **US-23 (`MT-61`, `#23` · DevA · 5 pts)** — Branche `feature/MT-61-us23-ordonnances` :
+  - `US-23-T1` : Modèle `Ordonnance` (lignes : médicament, posologie, durée, liée à la consultation).
+  - `US-23-T2` : Endpoint `POST /ordonnances`.
+  - `US-23-T3` : Formulaire d'ordonnance Angular (lignes dynamiques `FormArray`).
+- **Fin J14 :** Ouvrir PR `MT-61` → Relire & merger **US-25 (`MT-63`)** de Lhassan.
+
+### Jour 15 — Dimanche 6 décembre 2026
+- **US-24 (`MT-62`, `#24` · DevA · 5 pts)** — Branche `feature/MT-62-us24-ordonnance-pdf` :
+  - `US-24-T1` : Génération PDF côté API (`pdfkit` : en-tête médecin, patient, date, médicaments).
+  - `US-24-T2` : Endpoint `GET /ordonnances/:id/pdf`.
+  - `US-24-T3` : Bouton de téléchargement PDF côté Angular.
+- **Fin J15 :** Ouvrir PR `MT-62` → Relire & merger **US-26 (`MT-64`)** & **US-28 (`MT-66`)** de Lhassan.
+
+### Jour 16 — Lundi 7 décembre 2026 *(Clôture Sprint 4)*
+- Valider Sprint 4, capture Burndown Chart Sprint 4, **Complete Sprint 4 → Start Sprint 5**.
+
+---
+
+## SPRINT 5 — (Mar 08 déc. → Dim 13 déc. 2026)
+
+### Jour 17 — Mardi 8 décembre 2026
+- **US-29 (`MT-67`, `#29` · DevA · 5 pts)** — Branche `feature/MT-67-us29-dashboard-medecin` :
+  - `US-29-T1` : Endpoints d'agrégation (RDV du jour, nombre de patients, consultations du mois).
+  - `US-29-T2` : Tableau de bord médecin Angular (cartes KPI).
+- **Fin J17 :** Ouvrir PR `MT-67` → Relire & merger **US-32 (`MT-70`)** de Lhassan.
+
+### Jour 18 — Mercredi 9 décembre 2026
+- **US-30 (`MT-68`, `#30` · DevA · 5 pts)** — Branche `feature/MT-68-us30-stats-specialite` :
+  - `US-30-T1` : Pipeline d'agrégation MongoDB par spécialité et par période.
+  - `US-30-T2` : Graphiques **Chart.js** dans Angular.
+- **Fin J18 :** Ouvrir PR `MT-68` → Relire & merger **US-31 (`MT-69`)** (Cypress E2E) de Lhassan.
+
+### Jour 19 — Jeudi 10 décembre 2026
+- **US-34 (`MT-72`, `#34` · Binôme · 5 pts — partie 1/2)** — Branche `feature/MT-72-us34-rapport-devA` :
+  - `US-34-T2` : Rédiger les sections Architecture technique, SCRUM/Jira et extraits de code commentés.
+- **Fin J19 :** Relire & merger **US-33 (`MT-71`)** (README, Seed, Docker) de Lhassan.
+
+### Jour 20 — Vendredi 11 / Samedi 12 décembre 2026
+- **US-34 (`MT-72`, `#34` · Binôme — partie 2/2)** :
+  - `US-34-T4` : Relecture croisée du rapport complet (avec `T1` et `T3` de Lhassan) + mise en page PDF finale (15–20 pages) + merge final de `MT-72`.
+
+### Jour 21 — Dimanche 13 décembre 2026 *(Livraison & Soutenance)*
+- **Complete Sprint 5** dans Jira, vérification finale de la checklist 7/7 de Pr. S. Amri et répétition de la soutenance avec Lhassan.
