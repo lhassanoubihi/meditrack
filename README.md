@@ -33,7 +33,7 @@ Les établissements de santé font face à une gestion complexe des dossiers pat
 | **Génération PDF** | PDFKit (Ordonnances numériques + QR Code) |
 | **Tests** | Jest + Supertest (Backend ≥ 60% couverture), Cypress (E2E) |
 | **Conteneurisation** | Docker + Docker Compose |
-| **Gestion de projet** | Jira Software (SCRUM, 5 Sprints de 2 semaines, Burndown Charts) |
+| **Gestion de projet** | Jira Software — Board Scrum : https://lhassanoubihi.atlassian.net/jira/software/projects/MT/boards/67 (Clé `MT`, 5 Sprints, Burndown Charts) |
 
 ---
 
