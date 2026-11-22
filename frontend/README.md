@@ -1,11 +1,12 @@
-# MediTrack Frontend — Angular 17
+# MediTrack Frontend — Angular 17 + Angular Material (`US-01-T2` / `MED-46`)
 
-Ce dossier accueillera l'application **Angular 17 + TypeScript + RxJS + Angular Material** lors de la User Story **US-02 (Sprint 1)**.
+Application standalone **Angular 17** avec **Angular Material**, routage et configuration `HttpClient` vers l'API Express (`http://localhost:5000/api`).
 
-## Initialisation (Sprint 1 — Rida Dandane)
+## Commandes de développement
 ```bash
-npx -p @angular/cli@17 ng new meditrack-ui --directory . --routing --style=scss --standalone
-ng add @angular/material
+cd frontend
+npm install
+npm start       # Serveur de développement sur http://localhost:4200
+npm run build   # Build de production dans dist/meditrack-frontend
+npm run lint    # Vérification lint
 ```
-
-Une fois l'application Angular générée, mettez à jour le `Dockerfile` en build multi-étapes (Node 20 build -> Nginx).
