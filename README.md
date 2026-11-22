@@ -1,5 +1,7 @@
 # MediTrack — Plateforme de Gestion Médicale en Ligne
 
+[![MediTrack CI](https://github.com/lhassanoubihi/meditrack/actions/workflows/ci.yml/badge.svg)](https://github.com/lhassanoubihi/meditrack/actions/workflows/ci.yml)
+
 > **Projet 2 — Systèmes d'Information (Méthode Agile SCRUM sous Jira)**  
 > **Établissement :** École Nationale Supérieure d'Arts et Métiers (ENSAM Meknès)  
 > **Filière :** Ingénierie des Logiciels et des Systèmes d'Information — ILSI-4A  

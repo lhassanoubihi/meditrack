@@ -7,15 +7,26 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  backend-tests:
+  backend-ci:
+    name: Backend Lint & Jest Tests
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./backend
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - run: npm test
+
+      - name: Install dependencies (US-02-T1)
+        run: npm install
+
+      - name: Run Lint Check (US-02-T1)
+        run: npm run lint
+
+      - name: Run Jest Unit Tests with Coverage (US-02-T2)
+        run: npm test
