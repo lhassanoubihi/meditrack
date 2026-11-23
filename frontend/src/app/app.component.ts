@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     RouterOutlet,
     MatToolbarModule,
     MatButtonModule,
@@ -22,8 +23,8 @@ import { MatCardModule } from '@angular/material/card';
       <mat-icon>local_hospital</mat-icon>
       <span style="margin-left: 8px; font-weight: 600;">MediTrack — Gestion Médicale en Ligne</span>
       <span style="flex: 1 1 auto;"></span>
-      <button mat-button>Connexion</button>
-      <button mat-raised-button color="accent">Inscription Patient</button>
+      <button mat-button routerLink="/login">Connexion</button>
+      <button mat-raised-button color="accent" routerLink="/register">Inscription Patient</button>
     </mat-toolbar>
 
     <main class="meditrack-container">
