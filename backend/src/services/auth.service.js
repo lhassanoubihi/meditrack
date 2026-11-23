@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const env = require('../config/env');
 const { User, EMAIL_REGEX } = require('../models/User.model');
 const { AppError } = require('../middlewares/errorHandler.middleware');
 
@@ -13,6 +15,18 @@ function sanitizeUser(user) {
   delete obj.twoFactorSecret;
   delete obj.__v;
   return obj;
+}
+
+function generateToken(user) {
+  const payload = {
+    sub: String(user._id || user.id),
+    email: user.email,
+    role: user.role
+  };
+
+  return jwt.sign(payload, env.jwtSecret, {
+    expiresIn: env.jwtExpiresIn
+  });
 }
 
 function validateRegistrationPayload(payload = {}) {
@@ -69,9 +83,41 @@ async function registerPatient(payload) {
   return sanitizeUser(createdUser);
 }
 
+async function loginUser(payload = {}) {
+  const email = typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : '';
+  const password = typeof payload.password === 'string' ? payload.password : '';
+
+  if (!email || !password) {
+    throw new AppError('Email et mot de passe sont obligatoires', 400);
+  }
+
+  const user = await User.findOne({ email }).select('+password');
+  if (!user) {
+    throw new AppError('Email ou mot de passe incorrect', 401);
+  }
+
+  if (user.isActive === false) {
+    throw new AppError('Ce compte a été désactivé. Veuillez contacter un administrateur.', 403);
+  }
+
+  const isPasswordValid = await user.comparePassword(password);
+  if (!isPasswordValid) {
+    throw new AppError('Email ou mot de passe incorrect', 401);
+  }
+
+  const token = generateToken(user);
+
+  return {
+    token,
+    user: sanitizeUser(user)
+  };
+}
+
 module.exports = {
   STRONG_PASSWORD_REGEX,
   sanitizeUser,
+  generateToken,
   validateRegistrationPayload,
-  registerPatient
+  registerPatient,
+  loginUser
 };
