@@ -12,6 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { LoginPayload } from '../../../core/models/auth.model';
+import { getDefaultRouteForRole } from '../../../core/guards/role.guard';
 
 @Component({
   selector: 'app-login',
@@ -161,7 +162,7 @@ export class LoginComponent {
       next: (res) => {
         this.isLoading = false;
         this.snackBar.open(res.message || 'Connexion réussie', 'OK', { duration: 3000 });
-        this.router.navigate(['/']);
+        this.router.navigate([getDefaultRouteForRole(res?.data?.user?.role)]);
       },
       error: (err) => {
         this.isLoading = false;
