@@ -5,11 +5,18 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { ForbiddenComponent } from './features/errors/forbidden/forbidden.component';
 import { RoleHomeComponent } from './features/dashboard/role-home/role-home.component';
+import { StaffManagementComponent } from './features/admin/staff-management/staff-management.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forbidden', component: ForbiddenComponent },
+  {
+    path: 'admin/users',
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['admin'] },
+    component: StaffManagementComponent
+  },
   {
     path: 'admin',
     canActivate: [authGuard, roleGuard],
