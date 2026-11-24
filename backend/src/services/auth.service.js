@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const env = require('../config/env');
 const { User, EMAIL_REGEX } = require('../models/User.model');
 const { AppError } = require('../middlewares/errorHandler.middleware');
+const twoFactorService = require('./twoFactor.service');
 
 const STRONG_PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -105,12 +106,26 @@ async function loginUser(payload = {}) {
     throw new AppError('Email ou mot de passe incorrect', 401);
   }
 
+  if (user.twoFactorEnabled) {
+    const tempToken = twoFactorService.generateTempTwoFactorToken(user);
+    return {
+      requiresTwoFactor: true,
+      tempToken,
+      user: sanitizeUser(user)
+    };
+  }
+
   const token = generateToken(user);
 
   return {
+    requiresTwoFactor: false,
     token,
     user: sanitizeUser(user)
   };
+}
+
+async function verifyTwoFactorLogin(payload = {}) {
+  return twoFactorService.verifyTwoFactorLogin(payload, generateToken);
 }
 
 module.exports = {
@@ -119,5 +134,6 @@ module.exports = {
   generateToken,
   validateRegistrationPayload,
   registerPatient,
-  loginUser
+  loginUser,
+  verifyTwoFactorLogin
 };

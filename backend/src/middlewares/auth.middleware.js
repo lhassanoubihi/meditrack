@@ -16,6 +16,10 @@ function authenticate(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, env.jwtSecret);
+    if (decoded.purpose === '2fa_pending') {
+      return next(new AppError('Validation 2FA requise : token temporaire non autorisé', 401));
+    }
+
     req.user = {
       id: decoded.sub,
       email: decoded.email,
