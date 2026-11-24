@@ -30,6 +30,32 @@ function authenticate(req, res, next) {
   }
 }
 
+function authorize(...allowedRoles) {
+  const normalizedRoles = allowedRoles
+    .flat()
+    .filter((role) => typeof role === 'string' && role.trim().length > 0)
+    .map((role) => role.trim().toLowerCase());
+
+  return (req, res, next) => {
+    if (!req.user || !req.user.role) {
+      return next(new AppError('Authentification requise pour vérifier les droits d\'accès', 401));
+    }
+
+    const userRole = String(req.user.role).trim().toLowerCase();
+    if (!normalizedRoles.includes(userRole)) {
+      return next(
+        new AppError(
+          `Accès refusé : rôle '${userRole}' non autorisé pour cette ressource`,
+          403
+        )
+      );
+    }
+
+    return next();
+  };
+}
+
 module.exports = {
-  authenticate
+  authenticate,
+  authorize
 };
