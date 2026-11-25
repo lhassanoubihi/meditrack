@@ -1,12 +1,8 @@
 const express = require('express');
+const healthController = require('../controllers/health.controller');
+
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    service: 'MediTrack API',
-    timestamp: new Date().toISOString()
-  });
-});
+router.get('/', healthController.getHealth);
 
 module.exports = router;
