@@ -1,21 +1,10 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
-const { AppError } = require('../middlewares/errorHandler.middleware');
+const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-const requireAdmin =
-  typeof authMiddleware.authorize === 'function'
-    ? authMiddleware.authorize('admin')
-    : (req, _res, next) => {
-        if (!req.user || req.user.role !== 'admin') {
-          return next(new AppError('Accès refusé : rôle administrateur requis', 403));
-        }
-        return next();
-      };
-
-router.use(authMiddleware.authenticate, requireAdmin);
+router.use(authenticate, authorize('admin'));
 
 router.get('/', userController.list);
 router.get('/:id', userController.getById);
