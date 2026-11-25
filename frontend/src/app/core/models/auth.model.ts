@@ -37,7 +37,41 @@ export interface LoginResponse {
   status: 'success';
   message: string;
   data: {
+    requiresTwoFactor?: boolean;
+    token?: string;
+    tempToken?: string;
+    user: User;
+  };
+}
+
+export interface TwoFactorSetupResponse {
+  status: 'success';
+  message: string;
+  data: {
+    secret: string;
+    otpauthUrl: string;
+    qrCodeDataUrl: string;
+  };
+}
+
+export interface TwoFactorVerifyPayload {
+  tempToken?: string;
+  code: string;
+}
+
+export interface TwoFactorVerifyResponse {
+  status: 'success';
+  message: string;
+  data: {
     token: string;
+    user: User;
+  };
+}
+
+export interface TwoFactorActionResponse {
+  status: 'success';
+  message: string;
+  data: {
     user: User;
   };
 }

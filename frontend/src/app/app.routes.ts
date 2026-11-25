@@ -3,6 +3,8 @@ import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { TwoFactorVerifyComponent } from './features/auth/two-factor/two-factor-verify.component';
+import { TwoFactorSetupComponent } from './features/auth/two-factor/two-factor-setup.component';
 import { ForbiddenComponent } from './features/errors/forbidden/forbidden.component';
 import { RoleHomeComponent } from './features/dashboard/role-home/role-home.component';
 import { StaffManagementComponent } from './features/admin/staff-management/staff-management.component';
@@ -10,6 +12,12 @@ import { StaffManagementComponent } from './features/admin/staff-management/staf
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: '2fa/verify', component: TwoFactorVerifyComponent },
+  {
+    path: 'security/2fa',
+    canActivate: [authGuard],
+    component: TwoFactorSetupComponent
+  },
   { path: 'forbidden', component: ForbiddenComponent },
   {
     path: 'admin/users',

@@ -161,6 +161,15 @@ export class LoginComponent {
     this.authService.login(payload).subscribe({
       next: (res) => {
         this.isLoading = false;
+        if (res?.data?.requiresTwoFactor && res?.data?.tempToken) {
+          this.snackBar.open(
+            res.message || 'Code 2FA requis pour finaliser la connexion',
+            'OK',
+            { duration: 4000 }
+          );
+          this.router.navigate(['/2fa/verify']);
+          return;
+        }
         this.snackBar.open(res.message || 'Connexion réussie', 'OK', { duration: 3000 });
         this.router.navigate([getDefaultRouteForRole(res?.data?.user?.role)]);
       },

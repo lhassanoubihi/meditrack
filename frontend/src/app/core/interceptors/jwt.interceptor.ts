@@ -20,7 +20,10 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401 && !req.url.includes('/auth/login')) {
+      const isAuthChallengeEndpoint =
+        req.url.includes('/auth/login') || req.url.includes('/auth/2fa/');
+
+      if (error.status === 401 && !isAuthChallengeEndpoint) {
         authService.logout();
         router.navigate(['/login']);
       }
