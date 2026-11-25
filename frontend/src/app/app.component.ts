@@ -58,6 +58,10 @@ const ROLE_MENU_ITEMS: NavMenuItem[] = [
       <span style="flex: 1 1 auto;"></span>
 
       <ng-container *ngIf="currentUser$ | async as user; else guestActions">
+        <a mat-button routerLink="/security/2fa" routerLinkActive="active-link">
+          <mat-icon>security</mat-icon>
+          <span>2FA</span>
+        </a>
         <span class="user-badge">{{ user.firstName }} {{ user.lastName }} ({{ user.role }})</span>
         <button mat-stroked-button color="accent" (click)="logout()">
           <mat-icon>logout</mat-icon>
