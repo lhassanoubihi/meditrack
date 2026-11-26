@@ -1,4 +1,5 @@
 const { User, ROLES } = require('./User.model');
+const { Patient, GENDERS, BLOOD_GROUPS, CIN_REGEX } = require('./Patient.model');
 
 /**
  * Central registry for MediTrack Mongoose domain models.
@@ -9,5 +10,9 @@ const { User, ROLES } = require('./User.model');
  */
 module.exports = {
   User,
-  ROLES
+  ROLES,
+  Patient,
+  GENDERS,
+  BLOOD_GROUPS,
+  CIN_REGEX
 };
