@@ -1,40 +1,36 @@
 import { Routes } from '@angular/router';
+
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
-import { LoginComponent } from './features/auth/login/login.component';
-import { RegisterComponent } from './features/auth/register/register.component';
-import { TwoFactorVerifyComponent } from './features/auth/two-factor/two-factor-verify.component';
-import { TwoFactorSetupComponent } from './features/auth/two-factor/two-factor-setup.component';
-import { ForbiddenComponent } from './features/errors/forbidden/forbidden.component';
-import { RoleHomeComponent } from './features/dashboard/role-home/role-home.component';
-import { StaffManagementComponent } from './features/admin/staff-management/staff-management.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '2fa/verify', component: TwoFactorVerifyComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES)
+  },
   {
     path: 'security/2fa',
     canActivate: [authGuard],
-    component: TwoFactorSetupComponent
+    loadComponent: () =>
+      import('./features/auth/two-factor/two-factor-setup.component').then(
+        (m) => m.TwoFactorSetupComponent
+      )
   },
-  { path: 'forbidden', component: ForbiddenComponent },
   {
-    path: 'admin/users',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['admin'] },
-    component: StaffManagementComponent
+    path: 'forbidden',
+    loadComponent: () =>
+      import('./features/errors/forbidden/forbidden.component').then(
+        (m) => m.ForbiddenComponent
+      )
   },
   {
     path: 'admin',
     canActivate: [authGuard, roleGuard],
-    data: {
-      roles: ['admin'],
-      title: 'Espace Administrateur',
-      description: 'Gestion des comptes du personnel, rôles, archivage et journal d’audit RGPD.',
-      icon: 'admin_panel_settings'
-    },
-    component: RoleHomeComponent
+    data: { roles: ['admin'] },
+    loadChildren: () =>
+      import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES)
   },
   {
     path: 'medecin',
@@ -42,10 +38,14 @@ export const routes: Routes = [
     data: {
       roles: ['medecin'],
       title: 'Espace Médecin',
-      description: 'Dossiers patients, disponibilités, calendrier des RDV, consultations et ordonnances PDF.',
+      description:
+        'Dossiers patients, disponibilités, calendrier des RDV, consultations et ordonnances PDF.',
       icon: 'medical_services'
     },
-    component: RoleHomeComponent
+    loadComponent: () =>
+      import('./features/dashboard/role-home/role-home.component').then(
+        (m) => m.RoleHomeComponent
+      )
   },
   {
     path: 'infirmier',
@@ -53,10 +53,14 @@ export const routes: Routes = [
     data: {
       roles: ['infirmier'],
       title: 'Espace Infirmier',
-      description: 'Consultation et suivi des dossiers médicaux patients et soins quotidiens.',
+      description:
+        'Consultation et suivi des dossiers médicaux patients et soins quotidiens.',
       icon: 'vaccines'
     },
-    component: RoleHomeComponent
+    loadComponent: () =>
+      import('./features/dashboard/role-home/role-home.component').then(
+        (m) => m.RoleHomeComponent
+      )
   },
   {
     path: 'pharmacien',
@@ -64,10 +68,14 @@ export const routes: Routes = [
     data: {
       roles: ['pharmacien'],
       title: 'Espace Pharmacien',
-      description: 'Validation des ordonnances numériques et gestion du stock de médicaments.',
+      description:
+        'Validation des ordonnances numériques et gestion du stock de médicaments.',
       icon: 'local_pharmacy'
     },
-    component: RoleHomeComponent
+    loadComponent: () =>
+      import('./features/dashboard/role-home/role-home.component').then(
+        (m) => m.RoleHomeComponent
+      )
   },
   {
     path: 'patient',
@@ -75,10 +83,14 @@ export const routes: Routes = [
     data: {
       roles: ['patient'],
       title: 'Espace Patient',
-      description: 'Mon dossier médical en lecture seule, prise de rendez-vous en ligne et ordonnances.',
+      description:
+        'Mon dossier médical en lecture seule, prise de rendez-vous en ligne et ordonnances.',
       icon: 'personal_injury'
     },
-    component: RoleHomeComponent
+    loadComponent: () =>
+      import('./features/dashboard/role-home/role-home.component').then(
+        (m) => m.RoleHomeComponent
+      )
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '**', redirectTo: 'login' }
 ];
