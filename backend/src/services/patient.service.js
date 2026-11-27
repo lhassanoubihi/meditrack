@@ -125,6 +125,220 @@ function validateCreatePatientPayload(payload = {}) {
   };
 }
 
+function validateUpdatePatientPayload(payload = {}) {
+  const errors = [];
+  const updates = {};
+
+  if (payload.firstName !== undefined) {
+    const val = typeof payload.firstName === 'string' ? payload.firstName.trim() : '';
+    if (val.length < 2 || val.length > 60) {
+      errors.push('Le prénom du patient doit contenir entre 2 et 60 caractères');
+    } else {
+      updates.firstName = val;
+    }
+  }
+
+  if (payload.lastName !== undefined) {
+    const val = typeof payload.lastName === 'string' ? payload.lastName.trim() : '';
+    if (val.length < 2 || val.length > 60) {
+      errors.push('Le nom du patient doit contenir entre 2 et 60 caractères');
+    } else {
+      updates.lastName = val;
+    }
+  }
+
+  if (payload.cin !== undefined) {
+    const val = typeof payload.cin === 'string' ? payload.cin.trim().toUpperCase() : '';
+    if (!CIN_REGEX.test(val)) {
+      errors.push('Le numéro CIN est invalide (4 à 20 caractères alphanumériques)');
+    } else {
+      updates.cin = val;
+    }
+  }
+
+  if (payload.dateOfBirth !== undefined) {
+    const parsed = new Date(payload.dateOfBirth);
+    if (Number.isNaN(parsed.getTime())) {
+      errors.push('La date de naissance est invalide');
+    } else if (parsed > new Date()) {
+      errors.push('La date de naissance ne peut pas être dans le futur');
+    } else {
+      updates.dateOfBirth = parsed;
+    }
+  }
+
+  if (payload.gender !== undefined) {
+    const val = typeof payload.gender === 'string' ? payload.gender.trim() : '';
+    if (!GENDERS.includes(val)) {
+      errors.push(`Le genre doit être l'une des valeurs suivantes : ${GENDERS.join(', ')}`);
+    } else {
+      updates.gender = val;
+    }
+  }
+
+  if (payload.bloodGroup !== undefined) {
+    const val = typeof payload.bloodGroup === 'string' ? payload.bloodGroup.trim() : '';
+    if (!BLOOD_GROUPS.includes(val)) {
+      errors.push(`Le groupe sanguin doit être valide (${BLOOD_GROUPS.join(', ')})`);
+    } else {
+      updates.bloodGroup = val;
+    }
+  }
+
+  if (payload.contact !== undefined) {
+    if (!payload.contact || typeof payload.contact !== 'object') {
+      errors.push('Les informations de contact sont invalides');
+    } else {
+      const contactUpdates = {};
+      if (payload.contact.phone !== undefined) {
+        const phone = typeof payload.contact.phone === 'string' ? payload.contact.phone.trim() : '';
+        if (phone.length < 6 || phone.length > 30) {
+          errors.push('Le numéro de téléphone doit contenir entre 6 et 30 caractères');
+        } else {
+          contactUpdates.phone = phone;
+        }
+      }
+      if (payload.contact.email !== undefined) {
+        const email =
+          typeof payload.contact.email === 'string' ? payload.contact.email.trim().toLowerCase() : '';
+        if (email && !EMAIL_REGEX.test(email)) {
+          errors.push('L\'adresse email de contact est invalide');
+        } else {
+          contactUpdates.email = email;
+        }
+      }
+      if (payload.contact.address !== undefined) {
+        contactUpdates.address =
+          typeof payload.contact.address === 'string' ? payload.contact.address.trim() : '';
+      }
+      if (
+        payload.contact.emergencyContact !== undefined &&
+        payload.contact.emergencyContact &&
+        typeof payload.contact.emergencyContact === 'object'
+      ) {
+        const ec = payload.contact.emergencyContact;
+        contactUpdates.emergencyContact = {
+          name: typeof ec.name === 'string' ? ec.name.trim() : undefined,
+          phone: typeof ec.phone === 'string' ? ec.phone.trim() : undefined,
+          relation: typeof ec.relation === 'string' ? ec.relation.trim() : undefined
+        };
+      }
+      if (Object.keys(contactUpdates).length > 0) {
+        updates.contact = contactUpdates;
+      }
+    }
+  }
+
+  if (payload.antecedents !== undefined) {
+    updates.antecedents = normalizeStringArray(payload.antecedents);
+  }
+  if (payload.allergies !== undefined) {
+    updates.allergies = normalizeStringArray(payload.allergies);
+  }
+  if (payload.traitements !== undefined) {
+    updates.traitements = normalizeStringArray(payload.traitements);
+  }
+  if (payload.notes !== undefined) {
+    updates.notes = typeof payload.notes === 'string' ? payload.notes.trim() : '';
+  }
+
+  if (payload.userId !== undefined) {
+    if (payload.userId === null || payload.userId === '') {
+      updates.userId = null;
+    } else if (!mongoose.Types.ObjectId.isValid(payload.userId)) {
+      errors.push('Identifiant compte utilisateur (userId) invalide');
+    } else {
+      updates.userId = payload.userId;
+    }
+  }
+
+  const modificationSummary =
+    typeof payload.modificationSummary === 'string' ? payload.modificationSummary.trim() : '';
+
+  if (errors.length === 0 && Object.keys(updates).length === 0) {
+    errors.push('Aucun champ valide fourni pour la mise à jour du dossier patient');
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+    updates,
+    modificationSummary
+  };
+}
+
+function valuesEqual(a, b) {
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((v, idx) => v === b[idx]);
+  }
+  return a === b;
+}
+
+function applyUpdatesAndComputeChanges(patient, updates) {
+  const changes = {};
+
+  const topLevelFields = [
+    'firstName',
+    'lastName',
+    'cin',
+    'dateOfBirth',
+    'gender',
+    'bloodGroup',
+    'antecedents',
+    'allergies',
+    'traitements',
+    'notes',
+    'userId'
+  ];
+
+  for (const field of topLevelFields) {
+    if (updates[field] !== undefined) {
+      const before = Array.isArray(patient[field]) ? [...patient[field]] : patient[field];
+      const after = updates[field];
+      if (!valuesEqual(before, after)) {
+        changes[field] = {
+          before: before instanceof Date ? before.toISOString() : before,
+          after: after instanceof Date ? after.toISOString() : after
+        };
+        patient[field] = after;
+      }
+    }
+  }
+
+  if (updates.contact) {
+    patient.contact = patient.contact || {};
+    for (const contactField of ['phone', 'email', 'address']) {
+      if (updates.contact[contactField] !== undefined) {
+        const before = patient.contact[contactField] || '';
+        const after = updates.contact[contactField];
+        if (before !== after) {
+          changes[`contact.${contactField}`] = { before, after };
+          patient.contact[contactField] = after;
+        }
+      }
+    }
+
+    if (updates.contact.emergencyContact) {
+      patient.contact.emergencyContact = patient.contact.emergencyContact || {};
+      for (const ecField of ['name', 'phone', 'relation']) {
+        if (updates.contact.emergencyContact[ecField] !== undefined) {
+          const before = patient.contact.emergencyContact[ecField] || '';
+          const after = updates.contact.emergencyContact[ecField];
+          if (before !== after) {
+            changes[`contact.emergencyContact.${ecField}`] = { before, after };
+            patient.contact.emergencyContact[ecField] = after;
+          }
+        }
+      }
+    }
+  }
+
+  return changes;
+}
+
 async function createPatient(payload, actorId) {
   const { isValid, errors, data } = validateCreatePatientPayload(payload);
 
@@ -147,9 +361,73 @@ async function createPatient(payload, actorId) {
   return sanitizePatient(created);
 }
 
+async function getPatientById(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError('Identifiant dossier patient invalide', 400);
+  }
+
+  const patient = await Patient.findById(id);
+  if (!patient) {
+    throw new AppError('Dossier patient introuvable', 404);
+  }
+
+  return sanitizePatient(patient);
+}
+
+async function updatePatient(id, payload, actorId) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError('Identifiant dossier patient invalide', 400);
+  }
+
+  const { isValid, errors, updates, modificationSummary } = validateUpdatePatientPayload(payload);
+  if (!isValid) {
+    throw new AppError('Données de mise à jour du dossier patient invalides', 400, errors);
+  }
+
+  const patient = await Patient.findById(id);
+  if (!patient) {
+    throw new AppError('Dossier patient introuvable', 404);
+  }
+
+  if (patient.isArchived) {
+    throw new AppError('Impossible de modifier un dossier patient archivé', 409);
+  }
+
+  if (updates.cin && updates.cin !== patient.cin) {
+    const duplicate = await Patient.findOne({
+      cin: updates.cin,
+      _id: { $ne: patient._id }
+    });
+    if (duplicate) {
+      throw new AppError(`Un autre dossier patient utilise déjà le CIN '${updates.cin}'`, 409);
+    }
+  }
+
+  const changes = applyUpdatesAndComputeChanges(patient, updates);
+  const changedFields = Object.keys(changes);
+
+  if (changedFields.length > 0 || modificationSummary) {
+    patient.updatedBy = actorId;
+    patient.modificationHistory = patient.modificationHistory || [];
+    patient.modificationHistory.push({
+      modifiedAt: new Date(),
+      modifiedBy: actorId,
+      summary:
+        modificationSummary || `Mise à jour des champs : ${changedFields.join(', ')}`,
+      changes
+    });
+    await patient.save();
+  }
+
+  return sanitizePatient(patient);
+}
+
 module.exports = {
   normalizeStringArray,
   sanitizePatient,
   validateCreatePatientPayload,
-  createPatient
+  validateUpdatePatientPayload,
+  createPatient,
+  getPatientById,
+  updatePatient
 };

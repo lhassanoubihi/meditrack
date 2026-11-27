@@ -11,4 +11,18 @@ router.post(
   patientController.create
 );
 
+router.get(
+  '/:id',
+  authenticate,
+  authorize('admin', 'medecin', 'infirmier'),
+  patientController.getById
+);
+
+router.put(
+  '/:id',
+  authenticate,
+  authorize('admin', 'medecin', 'infirmier'),
+  patientController.update
+);
+
 module.exports = router;
