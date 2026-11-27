@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -7,6 +7,8 @@ import {
   CreatePatientPayload,
   CreatePatientResponse,
   PatientDetailResponse,
+  PatientListParams,
+  PatientListResponse,
   UpdatePatientPayload,
   UpdatePatientResponse
 } from '../models/patient.model';
@@ -17,6 +19,23 @@ import {
 export class PatientService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/patients`;
+
+  listPatients(params: PatientListParams = {}): Observable<PatientListResponse> {
+    let httpParams = new HttpParams();
+    if (params.search && params.search.trim()) {
+      httpParams = httpParams.set('search', params.search.trim());
+    }
+    if (params.page) {
+      httpParams = httpParams.set('page', String(params.page));
+    }
+    if (params.limit) {
+      httpParams = httpParams.set('limit', String(params.limit));
+    }
+    if (params.includeArchived !== undefined) {
+      httpParams = httpParams.set('includeArchived', String(params.includeArchived));
+    }
+    return this.http.get<PatientListResponse>(this.apiUrl, { params: httpParams });
+  }
 
   createPatient(payload: CreatePatientPayload): Observable<CreatePatientResponse> {
     return this.http.post<CreatePatientResponse>(this.apiUrl, payload);

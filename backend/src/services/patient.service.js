@@ -422,12 +422,50 @@ async function updatePatient(id, payload, actorId) {
   return sanitizePatient(patient);
 }
 
+function escapeRegex(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+async function listPatients({ search = '', page = 1, limit = 10, includeArchived = false } = {}) {
+  const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
+  const parsedLimit = Math.min(100, Math.max(1, Number.parseInt(limit, 10) || 10));
+  const skip = (parsedPage - 1) * parsedLimit;
+
+  const filter = {};
+  const showArchived = includeArchived === true || includeArchived === 'true';
+  if (!showArchived) {
+    filter.isArchived = { $ne: true };
+  }
+
+  const trimmedSearch = typeof search === 'string' ? search.trim() : '';
+  if (trimmedSearch) {
+    const regex = new RegExp(escapeRegex(trimmedSearch), 'i');
+    filter.$or = [{ firstName: regex }, { lastName: regex }, { cin: regex }];
+  }
+
+  const [patients, total] = await Promise.all([
+    Patient.find(filter).sort({ createdAt: -1 }).skip(skip).limit(parsedLimit),
+    Patient.countDocuments(filter)
+  ]);
+
+  return {
+    patients: patients.map(sanitizePatient),
+    pagination: {
+      total,
+      page: parsedPage,
+      limit: parsedLimit,
+      totalPages: Math.max(1, Math.ceil(total / parsedLimit))
+    }
+  };
+}
+
 module.exports = {
   normalizeStringArray,
   sanitizePatient,
   validateCreatePatientPayload,
   validateUpdatePatientPayload,
   createPatient,
+  listPatients,
   getPatientById,
   updatePatient
 };

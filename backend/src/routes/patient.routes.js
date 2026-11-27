@@ -4,6 +4,13 @@ const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
+router.get(
+  '/',
+  authenticate,
+  authorize('admin', 'medecin', 'infirmier'),
+  patientController.list
+);
+
 router.post(
   '/',
   authenticate,
