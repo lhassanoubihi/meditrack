@@ -13,6 +13,33 @@ async function create(req, res, next) {
   }
 }
 
+async function getById(req, res, next) {
+  try {
+    const patient = await patientService.getPatientById(req.params.id);
+    return res.status(200).json({
+      status: 'success',
+      data: { patient }
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+async function update(req, res, next) {
+  try {
+    const patient = await patientService.updatePatient(req.params.id, req.body, req.user.id);
+    return res.status(200).json({
+      status: 'success',
+      message: 'Dossier patient mis à jour avec succès',
+      data: { patient }
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 module.exports = {
-  create
+  create,
+  getById,
+  update
 };

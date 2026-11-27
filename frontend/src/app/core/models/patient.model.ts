@@ -28,7 +28,7 @@ export interface PatientModificationEntry {
   modifiedAt: string;
   modifiedBy: string;
   summary?: string;
-  changes?: Record<string, unknown>;
+  changes?: Record<string, { before: unknown; after: unknown }>;
 }
 
 export interface Patient {
@@ -68,7 +68,26 @@ export interface CreatePatientPayload {
   notes?: string;
 }
 
+export interface UpdatePatientPayload extends Partial<CreatePatientPayload> {
+  modificationSummary?: string;
+}
+
 export interface CreatePatientResponse {
+  status: 'success';
+  message: string;
+  data: {
+    patient: Patient;
+  };
+}
+
+export interface PatientDetailResponse {
+  status: 'success';
+  data: {
+    patient: Patient;
+  };
+}
+
+export interface UpdatePatientResponse {
   status: 'success';
   message: string;
   data: {

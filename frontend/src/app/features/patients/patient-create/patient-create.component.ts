@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,6 +27,7 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterLink,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -54,6 +56,16 @@ import {
               <strong>Dossier créé avec succès :</strong>
               {{ createdPatient.firstName }} {{ createdPatient.lastName }} (CIN :
               <code>{{ createdPatient.cin }}</code>)
+              <a
+                *ngIf="createdPatient._id"
+                mat-button
+                color="primary"
+                [routerLink]="['/patients', createdPatient._id, 'edit']"
+                style="margin-left: 8px"
+              >
+                <mat-icon>edit</mat-icon>
+                Modifier ce dossier
+              </a>
             </div>
           </div>
 

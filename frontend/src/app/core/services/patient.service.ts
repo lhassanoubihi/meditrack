@@ -3,7 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { CreatePatientPayload, CreatePatientResponse } from '../models/patient.model';
+import {
+  CreatePatientPayload,
+  CreatePatientResponse,
+  PatientDetailResponse,
+  UpdatePatientPayload,
+  UpdatePatientResponse
+} from '../models/patient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +20,13 @@ export class PatientService {
 
   createPatient(payload: CreatePatientPayload): Observable<CreatePatientResponse> {
     return this.http.post<CreatePatientResponse>(this.apiUrl, payload);
+  }
+
+  getPatientById(id: string): Observable<PatientDetailResponse> {
+    return this.http.get<PatientDetailResponse>(`${this.apiUrl}/${id}`);
+  }
+
+  updatePatient(id: string, payload: UpdatePatientPayload): Observable<UpdatePatientResponse> {
+    return this.http.put<UpdatePatientResponse>(`${this.apiUrl}/${id}`, payload);
   }
 }

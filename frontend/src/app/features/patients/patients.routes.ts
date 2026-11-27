@@ -9,6 +9,13 @@ export const PATIENT_ROUTES: Routes = [
       )
   },
   {
+    path: ':id/edit',
+    loadComponent: () =>
+      import('./patient-edit/patient-edit.component').then(
+        (m) => m.PatientEditComponent
+      )
+  },
+  {
     path: '',
     redirectTo: 'new',
     pathMatch: 'full'
