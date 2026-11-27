@@ -94,3 +94,25 @@ export interface UpdatePatientResponse {
     patient: Patient;
   };
 }
+
+export interface PatientPagination {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface PatientListParams {
+  search?: string;
+  page?: number;
+  limit?: number;
+  includeArchived?: boolean;
+}
+
+export interface PatientListResponse {
+  status: 'success';
+  data: {
+    patients: Patient[];
+    pagination: PatientPagination;
+  };
+}

@@ -13,6 +13,23 @@ async function create(req, res, next) {
   }
 }
 
+async function list(req, res, next) {
+  try {
+    const result = await patientService.listPatients({
+      search: req.query.search,
+      page: req.query.page,
+      limit: req.query.limit,
+      includeArchived: req.query.includeArchived
+    });
+    return res.status(200).json({
+      status: 'success',
+      data: result
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 async function getById(req, res, next) {
   try {
     const patient = await patientService.getPatientById(req.params.id);
@@ -40,6 +57,7 @@ async function update(req, res, next) {
 
 module.exports = {
   create,
+  list,
   getById,
   update
 };

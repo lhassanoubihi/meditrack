@@ -34,6 +34,14 @@ export const ROLE_NAV_ITEMS: NavMenuItem[] = [
     section: 'principal'
   },
   {
+    label: 'Dossiers patients',
+    route: '/patients',
+    icon: 'folder_shared',
+    roles: ['admin', 'medecin', 'infirmier'],
+    section: 'principal',
+    exact: true
+  },
+  {
     label: 'Nouveau dossier patient',
     route: '/patients/new',
     icon: 'person_add',
