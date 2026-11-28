@@ -45,6 +45,10 @@ export class PatientService {
     return this.http.get<PatientDetailResponse>(`${this.apiUrl}/${id}`);
   }
 
+  getMyDossier(): Observable<PatientDetailResponse> {
+    return this.http.get<PatientDetailResponse>(`${this.apiUrl}/me`);
+  }
+
   updatePatient(id: string, payload: UpdatePatientPayload): Observable<UpdatePatientResponse> {
     return this.http.put<UpdatePatientResponse>(`${this.apiUrl}/${id}`, payload);
   }

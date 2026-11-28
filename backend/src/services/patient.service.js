@@ -426,6 +426,33 @@ function escapeRegex(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+async function getPatientByUser(user) {
+  if (!user || !user.id) {
+    throw new AppError('Authentification requise', 401);
+  }
+
+  let patient = null;
+  if (mongoose.Types.ObjectId.isValid(user.id)) {
+    patient = await Patient.findOne({ userId: user.id, isArchived: { $ne: true } });
+  }
+
+  if (!patient && user.email) {
+    patient = await Patient.findOne({
+      'contact.email': String(user.email).trim().toLowerCase(),
+      isArchived: { $ne: true }
+    });
+  }
+
+  if (!patient) {
+    throw new AppError(
+      'Aucun dossier médical associé à votre compte patient pour le moment',
+      404
+    );
+  }
+
+  return sanitizePatient(patient);
+}
+
 async function listPatients({ search = '', page = 1, limit = 10, includeArchived = false } = {}) {
   const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
   const parsedLimit = Math.min(100, Math.max(1, Number.parseInt(limit, 10) || 10));
@@ -498,6 +525,7 @@ module.exports = {
   createPatient,
   listPatients,
   getPatientById,
+  getPatientByUser,
   updatePatient,
   archivePatient
 };

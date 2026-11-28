@@ -81,6 +81,13 @@ export const ROLE_NAV_ITEMS: NavMenuItem[] = [
     exact: true
   },
   {
+    label: 'Mon dossier médical',
+    route: '/patient/dossier',
+    icon: 'assignment_ind',
+    roles: ['patient'],
+    section: 'principal'
+  },
+  {
     label: 'Sécurité 2FA',
     route: '/security/2fa',
     icon: 'security',

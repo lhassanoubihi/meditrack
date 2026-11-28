@@ -19,6 +19,13 @@ router.post(
 );
 
 router.get(
+  '/me',
+  authenticate,
+  authorize('patient'),
+  patientController.getMine
+);
+
+router.get(
   '/:id',
   authenticate,
   authorize('admin', 'medecin', 'infirmier'),
