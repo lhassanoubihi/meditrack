@@ -32,4 +32,18 @@ router.put(
   patientController.update
 );
 
+router.patch(
+  '/:id/archive',
+  authenticate,
+  authorize('admin', 'medecin'),
+  patientController.archive
+);
+
+router.delete(
+  '/:id',
+  authenticate,
+  authorize('admin', 'medecin'),
+  patientController.archive
+);
+
 module.exports = router;
