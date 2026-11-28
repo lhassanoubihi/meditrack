@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { Patient } from '../../../core/models/patient.model';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { PatientService } from '../../../core/services/patient.service';
 
 @Component({
@@ -31,15 +33,26 @@ import { PatientService } from '../../../core/services/patient.service';
         Retour aux dossiers
       </a>
 
-      <a
-        *ngIf="patient && !patient.isArchived"
-        mat-raised-button
-        color="primary"
-        [routerLink]="['/patients', patientId, 'edit']"
-      >
-        <mat-icon>edit</mat-icon>
-        Modifier le dossier
-      </a>
+      <div class="detail-actions-right" *ngIf="patient && !patient.isArchived">
+        <a
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/patients', patientId, 'edit']"
+        >
+          <mat-icon>edit</mat-icon>
+          Modifier le dossier
+        </a>
+        <button
+          *ngIf="canArchive"
+          mat-stroked-button
+          color="warn"
+          type="button"
+          (click)="onArchive()"
+        >
+          <mat-icon>archive</mat-icon>
+          Archiver
+        </button>
+      </div>
     </div>
 
     <div *ngIf="loading" class="loading-box">
@@ -301,10 +314,32 @@ import { PatientService } from '../../../core/services/patient.service';
 export class PatientDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly patientService = inject(PatientService);
+  private readonly authService = inject(AuthService);
+  private readonly notification = inject(NotificationService);
 
   patientId = '';
   patient: Patient | null = null;
   loading = true;
+
+  get canArchive(): boolean {
+    const role = this.authService.getCurrentUser()?.role;
+    return role === 'admin' || role === 'medecin';
+  }
+
+  onArchive(): void {
+    if (!this.patient || !this.patientId) {
+      return;
+    }
+    if (!confirm(`Archiver le dossier de ${this.patient.firstName} ${this.patient.lastName} ?`)) {
+      return;
+    }
+    this.patientService.archivePatient(this.patientId).subscribe({
+      next: (res) => {
+        this.patient = res.data.patient;
+        this.notification.success('Dossier patient archivé avec succès.');
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.patientId = this.route.snapshot.paramMap.get('id') || '';

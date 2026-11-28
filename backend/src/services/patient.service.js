@@ -459,6 +459,37 @@ async function listPatients({ search = '', page = 1, limit = 10, includeArchived
   };
 }
 
+async function archivePatient(id, actorId) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError('Identifiant dossier patient invalide', 400);
+  }
+
+  const patient = await Patient.findById(id);
+  if (!patient) {
+    throw new AppError('Dossier patient introuvable', 404);
+  }
+
+  if (patient.isArchived) {
+    throw new AppError('Ce dossier patient est déjà archivé', 409);
+  }
+
+  const now = new Date();
+  patient.isArchived = true;
+  patient.archivedAt = now;
+  patient.archivedBy = actorId;
+  patient.updatedBy = actorId;
+  patient.modificationHistory = patient.modificationHistory || [];
+  patient.modificationHistory.push({
+    modifiedAt: now,
+    modifiedBy: actorId,
+    summary: 'Archivage du dossier patient (soft delete)',
+    changes: { isArchived: { before: false, after: true } }
+  });
+
+  await patient.save();
+  return sanitizePatient(patient);
+}
+
 module.exports = {
   normalizeStringArray,
   sanitizePatient,
@@ -467,5 +498,6 @@ module.exports = {
   createPatient,
   listPatients,
   getPatientById,
-  updatePatient
+  updatePatient,
+  archivePatient
 };

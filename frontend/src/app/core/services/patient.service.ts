@@ -48,4 +48,8 @@ export class PatientService {
   updatePatient(id: string, payload: UpdatePatientPayload): Observable<UpdatePatientResponse> {
     return this.http.put<UpdatePatientResponse>(`${this.apiUrl}/${id}`, payload);
   }
+
+  archivePatient(id: string): Observable<UpdatePatientResponse> {
+    return this.http.patch<UpdatePatientResponse>(`${this.apiUrl}/${id}/archive`, {});
+  }
 }
