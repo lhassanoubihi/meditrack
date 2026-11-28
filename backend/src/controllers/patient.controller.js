@@ -30,6 +30,18 @@ async function list(req, res, next) {
   }
 }
 
+async function getMine(req, res, next) {
+  try {
+    const patient = await patientService.getPatientByUser(req.user);
+    return res.status(200).json({
+      status: 'success',
+      data: { patient }
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 async function getById(req, res, next) {
   try {
     const patient = await patientService.getPatientById(req.params.id);
@@ -58,6 +70,7 @@ async function update(req, res, next) {
 module.exports = {
   create,
   list,
+  getMine,
   getById,
   update
 };

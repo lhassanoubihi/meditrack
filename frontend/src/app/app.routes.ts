@@ -85,6 +85,15 @@ export const routes: Routes = [
       )
   },
   {
+    path: 'patient/dossier',
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['patient'] },
+    loadComponent: () =>
+      import('./features/patients/my-dossier/my-dossier.component').then(
+        (m) => m.MyDossierComponent
+      )
+  },
+  {
     path: 'patient',
     canActivate: [authGuard, roleGuard],
     data: {
