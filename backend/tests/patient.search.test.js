@@ -87,9 +87,10 @@ describe('US-09 — Recherche, pagination et consultation du dossier patient (GE
 
     const calledFilter = findSpy.mock.calls[0][0];
     expect(calledFilter.isArchived).toEqual({ $ne: true });
-    expect(calledFilter.$or).toHaveLength(3);
+    expect(calledFilter.$or).toHaveLength(4);
     expect(calledFilter.$or[0].firstName).toBeInstanceOf(RegExp);
     expect(calledFilter.$or[2].cin.test('cd98765')).toBe(true);
+    expect(calledFilter.$or[3].cinHash).toMatch(/^[a-f0-9]{64}$/);
     expect(chain.skip).toHaveBeenCalledWith(5);
     expect(chain.limit).toHaveBeenCalledWith(5);
   });
