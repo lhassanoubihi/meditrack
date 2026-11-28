@@ -7,7 +7,10 @@ const env = {
   frontendUrl: process.env.FRONTEND_URL || '*',
   jwtSecret: process.env.JWT_SECRET || 'dev_secret_change_me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1d',
-  twoFaIssuer: process.env.TWO_FA_ISSUER || 'MediTrack-ENSAM'
+  twoFaIssuer: process.env.TWO_FA_ISSUER || 'MediTrack-ENSAM',
+  encryptionKey:
+    process.env.ENCRYPTION_KEY ||
+    '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
 };
 
 module.exports = env;

@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
-const { Patient, GENDERS, BLOOD_GROUPS, CIN_REGEX } = require('../models/Patient.model');
+const {
+  Patient,
+  GENDERS,
+  BLOOD_GROUPS,
+  CIN_REGEX,
+  decryptPatientObject
+} = require('../models/Patient.model');
 const { EMAIL_REGEX } = require('../models/User.model');
 const { AppError } = require('../middlewares/errorHandler.middleware');
+const { hashValue } = require('../utils/crypto.util');
 
 function normalizeStringArray(value) {
   if (!value) {
@@ -34,6 +41,8 @@ function sanitizePatient(patient) {
     return null;
   }
   const obj = typeof patient.toJSON === 'function' ? patient.toJSON() : { ...patient };
+  decryptPatientObject(obj);
+  delete obj.cinHash;
   delete obj.__v;
   return obj;
 }
@@ -346,13 +355,15 @@ async function createPatient(payload, actorId) {
     throw new AppError('Données du dossier patient invalides', 400, errors);
   }
 
-  const existing = await Patient.findOne({ cin: data.cin });
+  const cinHash = hashValue(data.cin);
+  const existing = await Patient.findOne({ $or: [{ cinHash }, { cin: data.cin }] });
   if (existing) {
     throw new AppError(`Un dossier patient avec le CIN '${data.cin}' existe déjà`, 409);
   }
 
   const created = await Patient.create({
     ...data,
+    cinHash,
     isArchived: false,
     createdBy: actorId,
     updatedBy: actorId
@@ -394,13 +405,15 @@ async function updatePatient(id, payload, actorId) {
   }
 
   if (updates.cin && updates.cin !== patient.cin) {
+    const newCinHash = hashValue(updates.cin);
     const duplicate = await Patient.findOne({
-      cin: updates.cin,
+      $or: [{ cinHash: newCinHash }, { cin: updates.cin }],
       _id: { $ne: patient._id }
     });
     if (duplicate) {
       throw new AppError(`Un autre dossier patient utilise déjà le CIN '${updates.cin}'`, 409);
     }
+    patient.cinHash = newCinHash;
   }
 
   const changes = applyUpdatesAndComputeChanges(patient, updates);
@@ -467,7 +480,12 @@ async function listPatients({ search = '', page = 1, limit = 10, includeArchived
   const trimmedSearch = typeof search === 'string' ? search.trim() : '';
   if (trimmedSearch) {
     const regex = new RegExp(escapeRegex(trimmedSearch), 'i');
-    filter.$or = [{ firstName: regex }, { lastName: regex }, { cin: regex }];
+    const searchClauses = [{ firstName: regex }, { lastName: regex }, { cin: regex }];
+    const hashedSearch = hashValue(trimmedSearch);
+    if (hashedSearch) {
+      searchClauses.push({ cinHash: hashedSearch });
+    }
+    filter.$or = searchClauses;
   }
 
   const [patients, total] = await Promise.all([
