@@ -9,9 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 
 import { Patient } from '../../../core/models/patient.model';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { PatientService } from '../../../core/services/patient.service';
 
 @Component({
@@ -28,7 +31,8 @@ import { PatientService } from '../../../core/services/patient.service';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ],
   template: `
     <mat-card class="patient-list-card">
@@ -74,6 +78,15 @@ import { PatientService } from '../../../core/services/patient.service';
           <mat-icon>search</mat-icon>
           Rechercher
         </button>
+
+        <mat-slide-toggle
+          name="includeArchived"
+          [(ngModel)]="includeArchived"
+          (change)="onSearch()"
+          color="primary"
+        >
+          Afficher les archivés
+        </mat-slide-toggle>
       </form>
 
       <div *ngIf="loading" class="loading-box">
@@ -121,6 +134,15 @@ import { PatientService } from '../../../core/services/patient.service';
             <td mat-cell *matCellDef="let p">{{ p.contact?.phone || '—' }}</td>
           </ng-container>
 
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Statut</th>
+            <td mat-cell *matCellDef="let p">
+              <span [class]="p.isArchived ? 'status-archived' : 'status-active'">
+                {{ p.isArchived ? 'Archivé' : 'Actif' }}
+              </span>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let p" class="actions-cell">
@@ -133,6 +155,7 @@ import { PatientService } from '../../../core/services/patient.service';
                 Consulter
               </a>
               <a
+                *ngIf="!p.isArchived"
                 mat-button
                 color="accent"
                 [routerLink]="['/patients', getPatientId(p), 'edit']"
@@ -140,6 +163,16 @@ import { PatientService } from '../../../core/services/patient.service';
                 <mat-icon>edit</mat-icon>
                 Modifier
               </a>
+              <button
+                *ngIf="canArchive && !p.isArchived"
+                mat-button
+                color="warn"
+                type="button"
+                (click)="onArchive(p)"
+              >
+                <mat-icon>archive</mat-icon>
+                Archiver
+              </button>
             </td>
           </ng-container>
 
@@ -228,6 +261,22 @@ import { PatientService } from '../../../core/services/patient.service';
       border-radius: 999px;
       font-size: 0.82rem;
     }
+    .status-active {
+      font-weight: 600;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+    .status-archived {
+      font-weight: 600;
+      background: #eceff1;
+      color: #455a64;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
     .actions-cell {
       display: flex;
       gap: 0.5rem;
@@ -238,6 +287,8 @@ import { PatientService } from '../../../core/services/patient.service';
 })
 export class PatientListComponent implements OnInit {
   private readonly patientService = inject(PatientService);
+  private readonly authService = inject(AuthService);
+  private readonly notification = inject(NotificationService);
 
   readonly displayedColumns = [
     'cin',
@@ -245,15 +296,22 @@ export class PatientListComponent implements OnInit {
     'dateOfBirth',
     'bloodGroup',
     'phone',
+    'status',
     'actions'
   ];
 
   patients: Patient[] = [];
   searchTerm = '';
+  includeArchived = false;
   page = 1;
   limit = 10;
   total = 0;
   loading = false;
+
+  get canArchive(): boolean {
+    const role = this.authService.getCurrentUser()?.role;
+    return role === 'admin' || role === 'medecin';
+  }
 
   ngOnInit(): void {
     this.loadPatients();
@@ -265,7 +323,8 @@ export class PatientListComponent implements OnInit {
       .listPatients({
         search: this.searchTerm,
         page: this.page,
-        limit: this.limit
+        limit: this.limit,
+        includeArchived: this.includeArchived
       })
       .subscribe({
         next: (response) => {
@@ -277,6 +336,22 @@ export class PatientListComponent implements OnInit {
           this.loading = false;
         }
       });
+  }
+
+  onArchive(patient: Patient): void {
+    const id = this.getPatientId(patient);
+    if (!id) {
+      return;
+    }
+    if (!confirm(`Archiver le dossier de ${patient.firstName} ${patient.lastName} (${patient.cin}) ?`)) {
+      return;
+    }
+    this.patientService.archivePatient(id).subscribe({
+      next: () => {
+        this.notification.success(`Dossier ${patient.cin} archivé avec succès.`);
+        this.loadPatients();
+      }
+    });
   }
 
   onSearch(): void {

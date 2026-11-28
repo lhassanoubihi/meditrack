@@ -67,10 +67,24 @@ async function update(req, res, next) {
   }
 }
 
+async function archive(req, res, next) {
+  try {
+    const patient = await patientService.archivePatient(req.params.id, req.user.id);
+    return res.status(200).json({
+      status: 'success',
+      message: 'Dossier patient archivé avec succès',
+      data: { patient }
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 module.exports = {
   create,
   list,
   getMine,
   getById,
-  update
+  update,
+  archive
 };
